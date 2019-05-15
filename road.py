@@ -55,7 +55,7 @@ main_road1_len=55
 main_road2_len=55
 main_road3_len=55
 
-road1_len=22
+road1_len=30
 
 main_road1 = [0] * main_road1_len
 main_road2 = [0] * main_road2_len
@@ -106,9 +106,17 @@ vehicles.append(Vehicle(0,main_road2,0))
 vehicles.append(Vehicle(0,main_road3,0))
 
 def print_roads():
+    for i in range(13):
+        print(' ' * 48,end='')
+        print(road1.lane[i].vehicle)
+        
     main_road1.print_road()
     main_road2.print_road()
     main_road3.print_road()
+    
+    for i in range(16,30):
+        print(' ' * 48,end='')
+        print(road1.lane[i].vehicle)
 
 clear()
 print_roads()
@@ -116,6 +124,8 @@ print_roads()
 for j in range(30): #mainloop
     vehicles_down=[]
     for i in range(len(vehicles)):
+        flag_update=False; #flaga do przeskoczenia do koeljengo obiegu petli w przypadku juz zaktualizowanego miejsca pojazdu
+        
         if(vehicles[i].velocity < vehicles[i].get_speed_limit()): #acceleration
             vehicles[i].velocity+=1
             
@@ -124,7 +134,7 @@ for j in range(30): #mainloop
                 vehicles[i].velocity=k-1
                 break
             
-        if(random.randint(0, 9)<4): #Randomisation 40% chance to slow down
+        if(random.randint(0, 9)<4 and vehicles[i].velocity>0): #Randomisation 40% chance to slow down
             vehicles[i].velocity-=1
             
               
@@ -137,31 +147,38 @@ for j in range(30): #mainloop
         for k in range(1,vehicles[i].velocity+1): #sprawdzenie czy nie ma jakiegos skrzyzowania przed pojazdem
             road_info=vehicles[i].check_crossing(k)
             if(road_info!=None): #jest jakies skrzyzowanie
-                #print("SKRZYZOWANIE")
                 if(road_info[0].lane[road_info[1]].vehicle == 1): #sprawdzam czy jest tam pojazd
                     vehicles[i].velocity=k-1 #jesli jest to zmieniejszam predkosc tak zeby w niego nie wjechac
                 else: #jesli nie ma to musze podjac decyzje czy skrecic - poki co szansa 50%
                     if(random.randint(0, 9)<5):
                         vehicles[i].road=road_info[0]
                         vehicles[i].position=road_info[1]
+                        vehicles[i].velocity=1 #przy skrecie zmniejszenie predkosci do 1
                         vehicles[i].update_cell(1) #na jednej warstwie widac tylko ta jedynke(ten pojazd)
-                        break
-                  
+                        flag_update=True
+                        break #potrzebne to break zeby nastapila tylko jedna aktualizacja
         
-         
+        if(flag_update):
+            continue;
+            
         vehicles[i].position+=vehicles[i].velocity #Driving
         vehicles[i].update_cell(1)
             
      
     for w in range(len(vehicles_down)-1,-1): #usuwanie pojazdow ktore wyjechaly poza droge (usuwanie od tylu zeby nie bylo bledow z odwolaniem do nieistniejacego pojazdu)
-        print("do wywalenia: ",end='')
-        print(vehicles_down[w])
         vehicles.pop(vehicles_down[w])
     
-    #if(road1.lane[0].vehicle==0): #dodaj samochod do drogi
-    #    vehicles.append(Vehicle(0,main_road1,0))        
+    if(road1.lane[0].vehicle==0): #dodaj samochod do drogi
+        case=random.randint(0,3)
+        if(case==0):
+            vehicles.append(Vehicle(0,main_road1,0))  
+        elif(case==1):
+            vehicles.append(Vehicle(0,main_road2,0))  
+        elif(case==2):
+            vehicles.append(Vehicle(0,main_road3,0))  
         
-    time.sleep(1)
+        
+    time.sleep(0.6)
 
     clear()
     print_roads()
