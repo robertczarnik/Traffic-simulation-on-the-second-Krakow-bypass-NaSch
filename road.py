@@ -1,7 +1,7 @@
 import time
 import random
 
-clear = lambda: print('\n' * 55)
+clear = lambda: print('\n' * 55) 
 
 class Road(object):
     def __init__(self,lane,l_road=None,p_road=None,other_roads=None):
@@ -86,9 +86,16 @@ road1[13]=Cell(0,True,1,24); #tutaj juz ta droga krzyzuje sie po kolei z trzema 
 road1[14]=Cell(0,True,2,24);
 road1[15]=Cell(0,True,3,24);
 
-main_road1 = Road(main_road1,None,main_road2)
+main_road1 = Road(main_road1)
 main_road2 = Road(main_road2,main_road1,main_road3)
 main_road3 = Road(main_road3,main_road2,None)
+
+#ustawienie sasiednich pasow
+main_road1.p_road=main_road2
+main_road2.l_road=main_road1
+main_road2.p_road=main_road3
+main_road3.l_road=main_road2
+
 
 road1 = Road(road1)
 
@@ -101,9 +108,12 @@ road1.other_roads=[main_road1,main_road2,main_road3]
 
 
 vehicles=[] #list of vehicles that are on road
-vehicles.append(Vehicle(0,main_road1,0)) #dodanie pojazdu do road1 na miejscu 0 z predkoscia poczatkowa 0
-vehicles.append(Vehicle(0,main_road2,0))
+vehicles.append(Vehicle(4,main_road1,2)) #dodanie pojazdu do road1 na miejscu 0 z predkoscia poczatkowa 0
+vehicles.append(Vehicle(0,main_road1,7))
 vehicles.append(Vehicle(0,main_road3,0))
+
+vehicles.append(Vehicle(0,road1,0)) # z gory
+vehicles.append(Vehicle(0,road1,1))
 
 def print_roads():
     for i in range(13):
@@ -117,6 +127,16 @@ def print_roads():
     for i in range(16,30):
         print(' ' * 48,end='')
         print(road1.lane[i].vehicle)
+        
+def check_overtaking(vehicle,road):
+    pos=vehicle.position
+    if(len(road.lane)<=pos+vehicle.velocity+1): #zeby nie wyleciec poza droge
+        return False
+    
+    for i in range(pos-road.lane[pos].speed_limit,pos+vehicle.velocity+1): # (gap_lookback,gap_ahead)
+            if(road.lane[i].vehicle==1): #sprawdzenie czy jest wolne miejsce zeby mozna bylo wyprzedzac
+                return False
+    return True
 
 clear()
 print_roads()
@@ -126,23 +146,31 @@ for j in range(30): #mainloop
     for i in range(len(vehicles)):
         flag_update=False; #flaga do przeskoczenia do koeljengo obiegu petli w przypadku juz zaktualizowanego miejsca pojazdu
         
+        vehicles[i].update_cell(0) #remove vehicle from previous position
+        
         if(vehicles[i].velocity < vehicles[i].get_speed_limit()): #acceleration
             vehicles[i].velocity+=1
             
         for k in range(1,vehicles[i].velocity+1): #braking
-            if(vehicles[i].check_collision(k)):
-                vehicles[i].velocity=k-1
+            if(vehicles[i].check_collision(k)): #jest jakis pojazd przed nami, mozemy zwolnic lub probowac wyprzedzic go
+                if(vehicles[i].road.l_road != None and check_overtaking(vehicles[i],vehicles[i].road.l_road)): #jest lewy pas i odpowiednia luka na nim
+                    vehicles[i].road=vehicles[i].road.l_road
+                elif(vehicles[i].road.p_road != None and check_overtaking(vehicles[i],vehicles[i].road.p_road)):#jest prawy pas i odpowiednia luka na nim
+                    vehicles[i].road=vehicles[i].road.p_road
+                else:
+                    vehicles[i].velocity=k-1 #zwalniamy bo nie mozna wyprzedzic
+                
                 break
             
         if(random.randint(0, 9)<4 and vehicles[i].velocity>0): #Randomisation 40% chance to slow down
             vehicles[i].velocity-=1
             
               
-        vehicles[i].update_cell(0) #remove vehicle from previous position
         
         if( (vehicles[i].position+vehicles[i].velocity) >= len(vehicles[i].road.lane)):  #wyjechanie poza droge
             vehicles_down.append(i) #indeksy pojazdow ktore trzeba usunac
             continue
+        
         
         for k in range(1,vehicles[i].velocity+1): #sprawdzenie czy nie ma jakiegos skrzyzowania przed pojazdem
             road_info=vehicles[i].check_crossing(k)
