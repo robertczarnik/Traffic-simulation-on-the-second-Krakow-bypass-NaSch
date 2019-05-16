@@ -1,19 +1,27 @@
-import time
-import random
-
-clear = lambda: print('\n' * 55) 
+#0-wolna komorka 1-zajeta komorka 2-czerwone swiatlo 3-koniec drogi(koniecznosc zmiany pasa)
 
 class Road(object):
-    def __init__(self,lane,l_road=None,p_road=None,other_roads=None):
+    def __init__(self,lane,l_road=None,r_road=None,other_roads=None):
         self.lane=lane
         self.l_road=l_road
-        self.p_road=p_road
+        self.r_road=r_road
         self.other_roads=other_roads #roads that cross this road
                
-    def print_road(self):
-        for i in range(len(self.lane)):
-            print(self.lane[i].vehicle,end=' ')
-        print('')
+    def print_road(self,reverse=False):
+        if(not reverse):
+            for i in range(len(self.lane)):
+                if(self.lane[i].crossing_id!=None):
+                    print(max(self.lane[i].vehicle,self.other_roads[self.lane[i].crossing_id-1].lane[self.lane[i].index].vehicle),end=' ')                
+                else:
+                    print(self.lane[i].vehicle,end=' ')
+            print('')
+        else: #droga z prawej do lewej
+            for i in range(len(self.lane)-1,-1,-1):
+                if(self.lane[i].crossing_id!=None):
+                    print(max(self.lane[i].vehicle,self.other_roads[self.lane[i].crossing_id-1].lane[self.lane[i].index].vehicle),end=' ')                
+                else:
+                    print(self.lane[i].vehicle,end=' ')
+            print('')
 
 
 class Cell(object):
@@ -24,203 +32,159 @@ class Cell(object):
         self.index=index
         self.speed_limit=4 
        
+      
         
-class Vehicle(object):
-    def __init__(self,velocity,road,position):
-        self.velocity=velocity
-        self.road=road
-        self.position=position
-        self.road.lane[self.position].vehicle=1
+def traffic_ligths1(x):
+    if(x==1):
+        main_road1.lane[23].vehicle=2
+        main_road2.lane[23].vehicle=2
+        main_road3.lane[23].vehicle=2
+        main_road4.lane[28].vehicle=2
+        main_road5.lane[28].vehicle=2
+        main_road6.lane[28].vehicle=2
+        r1.lane[7].vehicle=0
+        r1.lane[14].vehicle=0
+        r2.lane[7].vehicle=0
+        r2.lane[14].vehicle=0
+    elif(x==-1):
+        main_road1.lane[23].vehicle=0
+        main_road2.lane[23].vehicle=0
+        main_road3.lane[23].vehicle=0
+        main_road4.lane[28].vehicle=0
+        main_road5.lane[28].vehicle=0
+        main_road6.lane[28].vehicle=0
+        r1.lane[7].vehicle=2
+        r1.lane[14].vehicle=2
+        r2.lane[7].vehicle=2
+        r2.lane[14].vehicle=2
         
-    def update_cell(self,x):
-        self.road.lane[self.position].vehicle=x
     
-    def get_speed_limit(self):
-        return self.road.lane[self.position].speed_limit
-    
-    def check_collision(self,distance):
-        if(self.position+distance >= len(self.road.lane)): #out of road
-            return False
-        
-        return self.road.lane[self.position+distance].vehicle==1
-    
-    def check_crossing(self,distance):
-        if(self.road.lane[self.position+distance].crossing_id!=None): #czyli jest jakies skrzyzowanie drog
-            return [self.road.other_roads[self.road.lane[self.position+distance].crossing_id-1],self.road.lane[self.position+distance].index] #zwracam droge ktora sie krzyzuje i pozycje w niej tego miejsca
-        return None
-        
-
 #representing roads
-main_road1_len=55
-main_road2_len=55
-main_road3_len=55
+main_road4_len=55
+main_road5_len=55
+main_road6_len=55
+main_road1_len=80
+main_road2_len=80
+main_road3_len=80
 
-road1_len=30
+r1_len=26
+r2_len=26
+r3_len=10 #z koncem drogi
 
+main_road4 = [0] * main_road4_len
+main_road5 = [0] * main_road5_len
+main_road6 = [0] * main_road6_len
 main_road1 = [0] * main_road1_len
 main_road2 = [0] * main_road2_len
 main_road3 = [0] * main_road3_len
 
-road1 = [0] * road1_len
+r1 = [0] * r1_len
+r2 = [0] * r2_len
+r3 = [0] * r3_len
 
+
+for i in range(main_road4_len):
+    main_road4[i]=Cell(0,False)
+    
+for i in range(main_road5_len):
+    main_road5[i]=Cell(0,False)
+    
+for i in range(main_road6_len):
+    main_road6[i]=Cell(0,False)
 
 for i in range(main_road1_len):
-    main_road1[i]=Cell(0,False);
+    main_road1[i]=Cell(0,False)
     
 for i in range(main_road2_len):
-    main_road2[i]=Cell(0,False);
+    main_road2[i]=Cell(0,False)
     
 for i in range(main_road3_len):
-    main_road3[i]=Cell(0,False);
+    main_road3[i]=Cell(0,False)
     
+for i in range(r1_len):
+    r1[i]=Cell(0,False)
     
-for i in range(road1_len):
-    road1[i]=Cell(0,False);
+for i in range(r2_len):
+    r2[i]=Cell(0,False)
+    
+for i in range(r3_len):
+    r3[i]=Cell(0,False)
 
 
-main_road1[24]=Cell(0,True,1,13); #dla kazdej z tych drog to jest pierwsze skrzyzowanie
-main_road2[24]=Cell(0,True,1,14);
-main_road3[24]=Cell(0,True,1,15);
+main_road1[24]=Cell(0,True,1,15)
+main_road1[25]=Cell(0,True,2,15)
 
-road1[13]=Cell(0,True,1,24); #tutaj juz ta droga krzyzuje sie po kolei z trzema innymi
-road1[14]=Cell(0,True,2,24);
-road1[15]=Cell(0,True,3,24);
+main_road2[24]=Cell(0,True,1,16)
+main_road2[25]=Cell(0,True,2,16)
 
+main_road3[24]=Cell(0,True,1,17)
+main_road3[25]=Cell(0,True,2,17)
+
+main_road4[29]=Cell(0,True,1,8)
+main_road4[30]=Cell(0,True,2,8)
+
+main_road5[29]=Cell(0,True,1,9)
+main_road5[30]=Cell(0,True,2,9)
+
+main_road6[29]=Cell(0,True,1,10)
+main_road6[30]=Cell(0,True,2,10)
+
+main_road3[42]=Cell(0,True,1,8) #r3
+
+
+r1[8]=Cell(0,True,1,30)
+r1[9]=Cell(0,True,2,30)
+r1[10]=Cell(0,True,3,30)
+r1[15]=Cell(0,True,4,24) #tutaj juz ta droga krzyzuje sie po kolei z trzema innymi
+r1[16]=Cell(0,True,5,24)
+r1[17]=Cell(0,True,6,24)
+
+
+r2[8]=Cell(0,True,1,25)  #droga do gory
+r2[9]=Cell(0,True,2,25)
+r2[10]=Cell(0,True,3,25)
+r2[15]=Cell(0,True,4,29)  #droga do gory
+r2[16]=Cell(0,True,5,29)
+r2[17]=Cell(0,True,6,29)
+
+r3[8]=Cell(0,True,1,42) #r3
+r3[9]=Cell(3) #r3 #koniec drogi - musisz skrecic
+
+
+main_road4 = Road(main_road4)
+main_road5 = Road(main_road5)
+main_road6 = Road(main_road6)
 main_road1 = Road(main_road1)
-main_road2 = Road(main_road2,main_road1,main_road3)
-main_road3 = Road(main_road3,main_road2,None)
+main_road2 = Road(main_road2)
+main_road3 = Road(main_road3)
 
 #ustawienie sasiednich pasow
-main_road1.p_road=main_road2
+main_road6.r_road=main_road5
+main_road5.l_road=main_road6
+main_road5.r_road=main_road4
+main_road4.l_road=main_road5
+main_road1.r_road=main_road2
 main_road2.l_road=main_road1
-main_road2.p_road=main_road3
+main_road2.r_road=main_road3
 main_road3.l_road=main_road2
 
 
-road1 = Road(road1)
-
-main_road1.other_roads=[road1]#dodanie drog z ktorymi sie po kolei krzyzuja
-main_road2.other_roads=[road1]
-main_road3.other_roads=[road1]
-
-road1.other_roads=[main_road1,main_road2,main_road3]
-#--
+r1 = Road(r1) #!!
+r2 = Road(r2) #!!
+r3 = Road(r3)
 
 
-vehicles=[] #list of vehicles that are on road
-vehicles.append(Vehicle(4,main_road1,2)) #dodanie pojazdu do road1 na miejscu 0 z predkoscia poczatkowa 0
-vehicles.append(Vehicle(0,main_road1,7))
-vehicles.append(Vehicle(0,main_road3,0))
+main_road4.other_roads=[r2,r1] #dodanie drog z ktorymi sie po kolei krzyzuja
+main_road5.other_roads=[r2,r1]
+main_road6.other_roads=[r2,r1]
 
-vehicles.append(Vehicle(0,road1,0)) # z gory
-vehicles.append(Vehicle(0,road1,1))
+main_road1.other_roads=[r1,r2] #dodanie drog z ktorymi sie po kolei krzyzuja
+main_road2.other_roads=[r1,r2]
+main_road3.other_roads=[r1,r2,r3]
 
-def print_roads():
-    for i in range(13):
-        print(' ' * 48,end='')
-        print(road1.lane[i].vehicle)
-        
-    main_road1.print_road()
-    main_road2.print_road()
-    main_road3.print_road()
-    
-    for i in range(16,30):
-        print(' ' * 48,end='')
-        print(road1.lane[i].vehicle)
-        
-def check_overtaking(vehicle,road):
-    pos=vehicle.position
-    if(len(road.lane)<=pos+vehicle.velocity+1): #zeby nie wyleciec poza droge
-        return False
-    
-    for i in range(pos-road.lane[pos].speed_limit,pos+vehicle.velocity+1): # (gap_lookback,gap_ahead)
-            if(road.lane[i].vehicle==1): #sprawdzenie czy jest wolne miejsce zeby mozna bylo wyprzedzac
-                return False
-    return True
-
-clear()
-print_roads()
-
-for j in range(30): #mainloop
-    vehicles_down=[]
-    for i in range(len(vehicles)):
-        flag_update=False; #flaga do przeskoczenia do koeljengo obiegu petli w przypadku juz zaktualizowanego miejsca pojazdu
-        
-        vehicles[i].update_cell(0) #remove vehicle from previous position
-        
-        if(vehicles[i].velocity < vehicles[i].get_speed_limit()): #acceleration
-            vehicles[i].velocity+=1
-            
-        for k in range(1,vehicles[i].velocity+1): #braking
-            if(vehicles[i].check_collision(k)): #jest jakis pojazd przed nami, mozemy zwolnic lub probowac wyprzedzic go
-                if(vehicles[i].road.l_road != None and check_overtaking(vehicles[i],vehicles[i].road.l_road)): #jest lewy pas i odpowiednia luka na nim
-                    vehicles[i].road=vehicles[i].road.l_road
-                elif(vehicles[i].road.p_road != None and check_overtaking(vehicles[i],vehicles[i].road.p_road)):#jest prawy pas i odpowiednia luka na nim
-                    vehicles[i].road=vehicles[i].road.p_road
-                else:
-                    vehicles[i].velocity=k-1 #zwalniamy bo nie mozna wyprzedzic
-                
-                break
-            
-        if(random.randint(0, 9)<4 and vehicles[i].velocity>0): #Randomisation 40% chance to slow down
-            vehicles[i].velocity-=1
-            
-              
-        
-        if( (vehicles[i].position+vehicles[i].velocity) >= len(vehicles[i].road.lane)):  #wyjechanie poza droge
-            vehicles_down.append(i) #indeksy pojazdow ktore trzeba usunac
-            continue
-        
-        
-        for k in range(1,vehicles[i].velocity+1): #sprawdzenie czy nie ma jakiegos skrzyzowania przed pojazdem
-            road_info=vehicles[i].check_crossing(k)
-            if(road_info!=None): #jest jakies skrzyzowanie
-                if(road_info[0].lane[road_info[1]].vehicle == 1): #sprawdzam czy jest tam pojazd
-                    vehicles[i].velocity=k-1 #jesli jest to zmieniejszam predkosc tak zeby w niego nie wjechac
-                else: #jesli nie ma to musze podjac decyzje czy skrecic - poki co szansa 50%
-                    if(random.randint(0, 9)<5):
-                        vehicles[i].road=road_info[0]
-                        vehicles[i].position=road_info[1]
-                        vehicles[i].velocity=1 #przy skrecie zmniejszenie predkosci do 1
-                        vehicles[i].update_cell(1) #na jednej warstwie widac tylko ta jedynke(ten pojazd)
-                        flag_update=True
-                        break #potrzebne to break zeby nastapila tylko jedna aktualizacja
-        
-        if(flag_update):
-            continue;
-            
-        vehicles[i].position+=vehicles[i].velocity #Driving
-        vehicles[i].update_cell(1)
-            
-     
-    for w in range(len(vehicles_down)-1,-1): #usuwanie pojazdow ktore wyjechaly poza droge (usuwanie od tylu zeby nie bylo bledow z odwolaniem do nieistniejacego pojazdu)
-        vehicles.pop(vehicles_down[w])
-    
-    if(road1.lane[0].vehicle==0): #dodaj samochod do drogi
-        case=random.randint(0,3)
-        if(case==0):
-            vehicles.append(Vehicle(0,main_road1,0))  
-        elif(case==1):
-            vehicles.append(Vehicle(0,main_road2,0))  
-        elif(case==2):
-            vehicles.append(Vehicle(0,main_road3,0))  
-        
-        
-    time.sleep(0.6)
-
-    clear()
-    print_roads()
-    
-
-
-
-
-
-
-
-
-
-
+r1.other_roads=[main_road4,main_road5,main_road6,main_road1,main_road2,main_road3] #!!
+r2.other_roads=[main_road3,main_road2,main_road1,main_road6,main_road5,main_road4] #!!
+r3.other_roads=[main_road3]
 
 
 
