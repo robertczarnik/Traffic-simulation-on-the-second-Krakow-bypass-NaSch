@@ -22,7 +22,7 @@ vehicles=veh.vehicles
 lights_change=1
 lights_timer=9
 
-for j in range(30): #mainloop
+for j in range(50): #mainloop
     vehicles_down=[]
     lights_timer+=1
     for i in range(len(vehicles)):
