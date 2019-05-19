@@ -34,7 +34,7 @@ class Cell(object):
     
     
 def traffic_lights_management(traffic_lights_timer):
-    if(traffic_lights_timer==80):
+    if(traffic_lights_timer==60):
         traffic_lights_timer=0
     
     if(traffic_lights_timer==0):
@@ -46,10 +46,10 @@ def traffic_lights_management(traffic_lights_timer):
     elif(traffic_lights_timer==20):
         traffic_ligths1(3)
         
-    elif(traffic_lights_timer==60):
+    elif(traffic_lights_timer==35):
         traffic_ligths1(4)
         
-    elif(traffic_lights_timer==70):
+    elif(traffic_lights_timer==45):
         traffic_ligths1(5)
         
     traffic_lights_timer+=1
