@@ -28,7 +28,7 @@ class Vehicle(object):
     
 def changing_road(vehicle,road):
     pos=vehicle.position
-    if(len(road.lane)<=pos+vehicle.velocity+1): #zeby nie wyleciec poza droge
+    if(len(road.lane)<=pos+vehicle.road.lane[pos].speed_limit+1): #zeby nie wyleciec poza droge
         return False
         
     if(road.lane[pos].vehicle>0): #jest samochod na sasiednim pasie - nie da sie zmienic pasa
@@ -73,7 +73,7 @@ pradnicka=medium            #r6
 pradnicka_left=medium       #r7
 dluga=medium               #r8
 dluga_right=medium         #r9
-
+kamienna=low            #r13
 
 def vehicle_creator(road,freq,nr,reverse=False,only_entry=False,only_entry_other_side=False):#chyba dziala XD
     #gdzie chce dojechac
@@ -117,7 +117,7 @@ def vehicle_creator(road,freq,nr,reverse=False,only_entry=False,only_entry_other
                     vehicles.append(Vehicle(0,road,0,[4,bottom[destination],False,'L','L'])) # <- /
 
 bottom_destinations=[1,4,6]
-upper_destinations=[2,5,8]
+upper_destinations=[2,5,8,14]
 
 
 def add_vehicle():
@@ -127,7 +127,8 @@ def add_vehicle():
     vehicle_creator(r.r4,slaska,4,True)
     vehicle_creator(r.r6,pradnicka,6,True) 
     vehicle_creator(r.r7,pradnicka_left,7,True,False,True) 
-    vehicle_creator(r.r8,pradnicka,8)
-    vehicle_creator(r.r9,pradnicka_left,9,False,True)
+    vehicle_creator(r.r8,dluga,8)
+    vehicle_creator(r.r9,dluga_right,9,False,True)
+    vehicle_creator(r.r13,kamienna,13,True,False,True)
 
 vehicles=[] #list of vehicles that are on road

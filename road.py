@@ -90,9 +90,9 @@ def traffic_ligths1(x): #sekwencja swiatel
 main_road4 = [Cell(0) for i in range(55)]
 main_road5 = [Cell(0) for i in range(55)]
 main_road6 = [Cell(0) for i in range(55)]
-main_road1 = [Cell(0) for i in range(100)]
-main_road2 = [Cell(0) for i in range(100)]
-main_road3 = [Cell(0) for i in range(100)]
+main_road1 = [Cell(0) for i in range(115)]
+main_road2 = [Cell(0) for i in range(115)]
+main_road3 = [Cell(0) for i in range(115)]
 r1 = [Cell(0) for i in range(34)]
 r2 = [Cell(0) for i in range(34)]
 r3 = [Cell(0) for i in range(14)]
@@ -102,6 +102,12 @@ r6 = [Cell(0) for i in range(34)]
 r7 = [Cell(0) for i in range(21)]
 r8 = [Cell(0) for i in range(34)]
 r9 = [Cell(0) for i in range(14)]
+r10 = []
+r11 = []
+r12 = []
+r13 = [Cell(0) for i in range(17)] 
+r14 = [Cell(0) for i in range(18)]    
+r15 = []
 
 ########################## special cells and init roads obj ###########################
 #main_road1
@@ -112,6 +118,8 @@ main_road1[60]=Cell(0,True,5,2)  #r5
 main_road1[73]=Cell(0,True,6,19) #r6
 main_road1[74]=Cell(0,True,7,19) #r7
 main_road1[75]=Cell(0,True,8,14) #r8
+main_road1[102]=Cell(0,True,13,15)#r13 #nie ma pasa zieleni pomiedzy drogami
+main_road1[104]=Cell(0,True,14,2) #r14 
 main_road1 = Road(main_road1)
 #---
 
@@ -122,6 +130,7 @@ main_road2[59]=Cell(0,True,4,20) #r4
 main_road2[60]=Cell(0,True,5,1)  #r5
 main_road2[73]=Cell(0,True,6,20) #r6
 main_road2[75]=Cell(0,True,8,13) #r8
+main_road2[104]=Cell(0,True,14,1) #r14 
 main_road2 = Road(main_road2)
 #---
 
@@ -134,6 +143,7 @@ main_road3[60]=Cell(0,True,5,0)  #r5
 main_road3[73]=Cell(0,True,6,21) #r6
 main_road3[75]=Cell(0,True,8,12) #r8
 main_road3[76]=Cell(0,True,9,12) #r9
+main_road3[104]=Cell(0,True,14,0) #r14 
 main_road3 = Road(main_road3)
 #---
 
@@ -212,9 +222,6 @@ r6 = Road(r6)
 #---
 
 #r7 \/
-#r7[12]=Cell(0,True,1,30) #mr4
-#r7[13]=Cell(0,True,2,30) #mr5
-#r7[14]=Cell(0,True,3,30) #mr6
 r7[19]=Cell(0,True,4,74)   #mr1
 r7[20]=Cell(3) #end of road
 r7 = Road(r7)
@@ -236,22 +243,38 @@ r9[13]=Cell(3) #end of road
 r9 = Road(r9)
 #---
 
+#r13 \/
+r13[15]=Cell(0,True,4,102)  #mr1
+r13[16]=Cell(3) #end of road
+r13 = Road(r13)
+#---
+
+#r14 /\
+r14[0]=Cell(0,True,1,104)  #mr3
+r14[1]=Cell(0,True,2,104)  #mr2
+r14[2]=Cell(0,True,3,104)  #mr1
+#r14[3]=Cell(0,True,4,75)  #mr6
+#r14[4]=Cell(0,True,5,75)  #mr5
+#r14[5]=Cell(0,True,6,75)  #mr4
+r14 = Road(r14)
+#---
+
 
 ########################## setting neighbors and other roads ##########################
 #main_road1
 main_road1.r_road=main_road2
-main_road1.other_roads=[r1,r2,None,r4,r5,r6,r7,r8,None]
+main_road1.other_roads=[r1,r2,None,r4,r5,r6,r7,r8,None,None,None,None,r13,r14]
 #---
 
 #main_road2
 main_road2.l_road=main_road1
 main_road2.r_road=main_road3
-main_road2.other_roads=[r1,r2,None,r4,r5,r6,None,r8,None]
+main_road2.other_roads=[r1,r2,None,r4,r5,r6,None,r8,None,None,None,None,None,r14]
 #---
 
 #main_road3
 main_road3.l_road=main_road2
-main_road3.other_roads=[r1,r2,r3,r4,r5,r6,None,r8,r9]
+main_road3.other_roads=[r1,r2,r3,r4,r5,r6,None,r8,r9,None,None,None,None,r14]
 #---
 
 #main_road4
@@ -304,4 +327,12 @@ r8.other_roads=[main_road3,main_road2,main_road1,None,None,None]
 
 #r9
 r9.other_roads=[main_road3]
+#---
+
+#r13
+r13.other_roads=[None,None,None,main_road1]
+#---
+
+#r14
+r14.other_roads=[main_road3,main_road2,main_road1]
 #---
