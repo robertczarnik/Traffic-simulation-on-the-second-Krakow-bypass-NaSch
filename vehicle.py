@@ -51,31 +51,76 @@ def check_overtaking(vehicle,road):
             return False
     return True
         
- 
-#bottom road
-#destinations_bottom=[[1]]
-def add_vehicle():
-    case=random.randint(0,2)
-    if(case == 0 and r.r1.lane[0].vehicle==0):
-        vehicles.append(Vehicle(0,r.r1,0,[4,4,False,'P','L']))  # oznaczenia L i P sa po to zeby samochod wiedzial na ktorym pasie sie ustawic, w odwrotnej kolejnosci niz numery skrzyzowan
-    elif(case == 1 and r.r2.lane[0].vehicle==0):
-        vehicles.append(Vehicle(0,r.r2,0,[1,4,False,'P','P']))
-    elif(case == 2 and r.r3.lane[0].vehicle==0):
-        vehicles.append(Vehicle(0,r.r3,0,[1,4,False,'P','P']) )
-    #dodaj samochod do losowej drogi
-      
-    #if(case == 0 and r.main_road1.lane[0].vehicle==0):
-        #vehicles.append(Vehicle(0,r.main_road1,0,[]))  
-    #elif(case == 1 and r.main_road2.lane[0].vehicle==0):
-        #vehicles.append(Vehicle(0,r.main_road2,0,[])) 
-    #elif(case == 2 and r.main_road3.lane[0].vehicle==0):
-        #vehicles.append(Vehicle(0,r.main_road3,0,[]))
-    #elif(case == 3 and r.r1.lane[0].vehicle==0): 
-        #vehicles.append(Vehicle(0,r.r1,0,[]))
-    #elif(case == 4 and r.r1.lane[0].vehicle==0):
-        #vehicles.append(Vehicle(0,r.r2,0,[]))
-    #elif(case == 5 and r.r3.lane[0].vehicle==0):
-        #vehicles.append(Vehicle(0,r.r3,0,[]))
 
-      
+#vehicles destinations
+    
+#down->down [1,nr,False,'P','P']
+#down->up   [4,nr,False,'P','L'] #usually 4
+#up->up     [1,nr,False,'P','P']
+#up->down   [4,nr,False,'L','P'] #usually 4
+
+#each road has its own propability to create a vehicle
+
+low=10
+medium=40
+high=80    
+
+mazowiecka=medium   #r1
+krowoderska=medium  #r2
+zulawskiego=low     #r3
+slaska=medium       #r4
+dluga1=medium       #r5
+
+
+def vehicle_creator(road,freq,nr,reverse=False,only_entry=False):#chyba dziala XD
+    #gdzie chce dojechac
+    #i wtedy wybor czy przejechac na druga strone i czy to jest droga w gore czy w dol
+    
+
+    if(reverse):
+        bottom=upper_destinations
+        upper=bottom_destinations
+    else:
+        bottom=bottom_destinations
+        upper=upper_destinations
+        
+        
+    if(random.randint(0,99)<freq and road.lane[0].vehicle==0):
+        if(random.randint(0,1) or only_entry): #przejazd dolem
+            if(random.randint(0,1)):
+                destination = random.randint(0,len(bottom)-1)
+                if(bottom[destination]==nr):
+                    vehicles.append(Vehicle(0,road,0,[False])) # ||
+                else:
+                    vehicles.append(Vehicle(0,road,0,[1,bottom[destination],False,'P','P'])) # -> /
+            else:
+                destination = random.randint(0,len(upper)-1)
+                if(upper[destination]==nr):
+                    vehicles.append(Vehicle(0,road,0,[False])) # ||
+                else:
+                    vehicles.append(Vehicle(0,road,0,[1,upper[destination],False,'L','P'])) # -> /
+        else: #przejazd gora
+            if(random.randint(0,1)):
+                destination = random.randint(0,len(upper)-1)
+                if(upper[destination]==nr):
+                    vehicles.append(Vehicle(0,road,0,[False])) # ||
+                else:
+                    vehicles.append(Vehicle(0,road,0,[4,upper[destination],False,'P','L'])) # <- /
+            else:
+                destination = random.randint(0,len(bottom)-1)
+                if(bottom[destination]==nr):
+                    vehicles.append(Vehicle(0,road,0,[False])) # ||
+                else:
+                    vehicles.append(Vehicle(0,road,0,[4,bottom[destination],False,'L','L'])) # <- /
+
+bottom_destinations=[1,4]
+upper_destinations=[2,5]
+
+
+def add_vehicle():
+    vehicle_creator(r.r1,mazowiecka,1,True)
+    vehicle_creator(r.r2,krowoderska,2)
+    vehicle_creator(r.r3,zulawskiego,3,False,True)
+    vehicle_creator(r.r4,slaska,4,True) 
+
 vehicles=[] #list of vehicles that are on road

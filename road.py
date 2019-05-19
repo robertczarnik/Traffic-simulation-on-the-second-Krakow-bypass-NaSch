@@ -63,10 +63,10 @@ def traffic_ligths1(x): #sekwencja swiatel
         main_road4.lane[28].vehicle=0
         main_road5.lane[28].vehicle=0
         main_road6.lane[28].vehicle=0
-        r1.lane[14].vehicle=2
-        r2.lane[14].vehicle=2
-        r1.lane[7].vehicle=2
-        r2.lane[7].vehicle=2
+        r1.lane[18].vehicle=2
+        r2.lane[18].vehicle=2
+        r1.lane[11].vehicle=2
+        r2.lane[11].vehicle=2
     elif(x==2):
         main_road1.lane[23].vehicle=2
         main_road2.lane[23].vehicle=2
@@ -75,14 +75,14 @@ def traffic_ligths1(x): #sekwencja swiatel
         main_road5.lane[28].vehicle=2
         main_road6.lane[28].vehicle=2
     elif(x==3):
-        r1.lane[14].vehicle=0
-        r2.lane[14].vehicle=0
+        r1.lane[18].vehicle=0
+        r2.lane[18].vehicle=0
     elif(x==4):
-        r1.lane[7].vehicle=0
-        r2.lane[7].vehicle=0
+        r1.lane[11].vehicle=0
+        r2.lane[11].vehicle=0
     elif(x==5):
-        r1.lane[7].vehicle=2
-        r2.lane[7].vehicle=2
+        r1.lane[11].vehicle=2
+        r2.lane[11].vehicle=2
         
     
 ###representing roads###
@@ -93,80 +93,80 @@ main_road6 = [Cell(0) for i in range(55)]
 main_road1 = [Cell(0) for i in range(78)]
 main_road2 = [Cell(0) for i in range(78)]
 main_road3 = [Cell(0) for i in range(78)]
-r1 = [Cell(0) for i in range(26)]
-r2 = [Cell(0) for i in range(26)]
-r3 = [Cell(0) for i in range(10)]
-r4 = [Cell(0) for i in range(26)]
-r5 = [Cell(0) for i in range(26)]
+r1 = [Cell(0) for i in range(34)]
+r2 = [Cell(0) for i in range(34)]
+r3 = [Cell(0) for i in range(14)]
+r4 = [Cell(0) for i in range(34)]
+r5 = [Cell(0) for i in range(22)]
 
 
 ########################## special cells and init roads obj ###########################
 #main_road1
-main_road1[24]=Cell(0,True,1,15) #r1
-main_road1[25]=Cell(0,True,2,15) #r2
-main_road1[59]=Cell(0,True,4,15) #r4
-main_road1[60]=Cell(0,True,5,15) #r5
+main_road1[24]=Cell(0,True,1,19) #r1
+main_road1[25]=Cell(0,True,2,14) #r2
+main_road1[59]=Cell(0,True,4,19) #r4
+main_road1[60]=Cell(0,True,5,2) #r5
 main_road1 = Road(main_road1)
 #---
 
 #main_road2
-main_road2[24]=Cell(0,True,1,16) #r1
-main_road2[25]=Cell(0,True,2,16) #r2
-main_road2[59]=Cell(0,True,4,16) #r4
-main_road2[60]=Cell(0,True,5,16) #r5
+main_road2[24]=Cell(0,True,1,20) #r1
+main_road2[25]=Cell(0,True,2,12) #r2
+main_road2[59]=Cell(0,True,4,20) #r4
+main_road2[60]=Cell(0,True,5,1) #r5
 main_road2 = Road(main_road2)
 #---
 
 #main_road3
-main_road3[24]=Cell(0,True,1,17) #r1
-main_road3[25]=Cell(0,True,2,17) #r2
-main_road3[59]=Cell(0,True,4,17) #r4
-main_road3[60]=Cell(0,True,5,17) #r5
-main_road3[42]=Cell(0,True,3,8)  #r3
+main_road3[24]=Cell(0,True,1,21) #r1
+main_road3[25]=Cell(0,True,2,13) #r2
+main_road3[42]=Cell(0,True,3,12)  #r3
+main_road3[59]=Cell(0,True,4,21) #r4
+main_road3[60]=Cell(0,True,5,0) #r5
 main_road3 = Road(main_road3)
 #---
 
 #main_road4
-main_road4[29]=Cell(0,True,1,8) #r2
-main_road4[30]=Cell(0,True,2,8) #r1
+main_road4[29]=Cell(0,True,1,12) #r2
+main_road4[30]=Cell(0,True,2,12) #r1
 main_road4 = Road(main_road4)
 #---
 
 #main_road5
-main_road5[29]=Cell(0,True,1,9) #r2
-main_road5[30]=Cell(0,True,2,9) #r1
+main_road5[29]=Cell(0,True,1,13) #r2
+main_road5[30]=Cell(0,True,2,13) #r1
 main_road5 = Road(main_road5)
 #---
 
 #main_road6
-main_road6[29]=Cell(0,True,1,10) #r2
-main_road6[30]=Cell(0,True,2,10) #r1
+main_road6[29]=Cell(0,True,1,14) #r2
+main_road6[30]=Cell(0,True,2,14) #r1
 main_road6 = Road(main_road6)
 #---
 
 #r1 \/
-r1[8]=Cell(0,True,1,30)  #mr4
-r1[9]=Cell(0,True,2,30)  #mr5
-r1[10]=Cell(0,True,3,30) #mr6
-r1[15]=Cell(0,True,4,24) #mr1
-r1[16]=Cell(0,True,5,24) #mr2
-r1[17]=Cell(0,True,6,24) #mr3
+r1[12]=Cell(0,True,1,30)  #mr4
+r1[13]=Cell(0,True,2,30)  #mr5
+r1[14]=Cell(0,True,3,30) #mr6
+r1[19]=Cell(0,True,4,24) #mr1
+r1[20]=Cell(0,True,5,24) #mr2
+r1[21]=Cell(0,True,6,24) #mr3
 r1 = Road(r1)
 #---
 
 #r2 /\
-r2[8]=Cell(0,True,1,25)  #mr3
-r2[9]=Cell(0,True,2,25)  #mr2
-r2[10]=Cell(0,True,3,25) #mr1
-r2[15]=Cell(0,True,4,29) #mr6
-r2[16]=Cell(0,True,5,29) #mr5
-r2[17]=Cell(0,True,6,29) #mr4
+r2[12]=Cell(0,True,1,25)  #mr3
+r2[13]=Cell(0,True,2,25)  #mr2
+r2[14]=Cell(0,True,3,25) #mr1
+r2[19]=Cell(0,True,4,29) #mr6
+r2[20]=Cell(0,True,5,29) #mr5
+r2[21]=Cell(0,True,6,29) #mr4
 r2 = Road(r2)
 #---
 
 #r3 /\
-r3[8]=Cell(0,True,1,42)  #mr3
-r3[9]=Cell(3) #end of road
+r3[12]=Cell(0,True,1,42)  #mr3
+r3[13]=Cell(3) #end of road
 r3 = Road(r3)
 #---
 
@@ -174,16 +174,16 @@ r3 = Road(r3)
 #r4[8]=Cell(0,True,1,30)  #mr4
 #r4[9]=Cell(0,True,2,30)  #mr5
 #r4[10]=Cell(0,True,3,30) #mr6
-r4[15]=Cell(0,True,4,59) #mr1
-r4[16]=Cell(0,True,5,59) #mr2
-r4[17]=Cell(0,True,6,59) #mr3
+r4[19]=Cell(0,True,4,59) #mr1
+r4[20]=Cell(0,True,5,59) #mr2
+r4[21]=Cell(0,True,6,59) #mr3
 r4 = Road(r4)
 #---
 
 #r5 /\
-r5[8]=Cell(0,True,1,60)  #mr3
-r5[9]=Cell(0,True,2,60)  #mr2
-r5[10]=Cell(0,True,3,60) #mr1
+r5[0]=Cell(0,True,1,60)  #mr3
+r5[1]=Cell(0,True,2,60)  #mr2
+r5[2]=Cell(0,True,3,60)  #mr1
 #r5[15]=Cell(0,True,4,29) #mr6
 #r5[16]=Cell(0,True,5,29) #mr5
 #r5[17]=Cell(0,True,6,29) #mr4
