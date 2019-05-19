@@ -69,10 +69,13 @@ mazowiecka=medium   #r1
 krowoderska=medium  #r2
 zulawskiego=low     #r3
 slaska=medium       #r4
-dluga1=medium       #r5
+pradnicka=medium            #r6
+pradnicka_left=medium       #r7
+dluga=medium               #r8
+dluga_right=medium         #r9
 
 
-def vehicle_creator(road,freq,nr,reverse=False,only_entry=False):#chyba dziala XD
+def vehicle_creator(road,freq,nr,reverse=False,only_entry=False,only_entry_other_side=False):#chyba dziala XD
     #gdzie chce dojechac
     #i wtedy wybor czy przejechac na druga strone i czy to jest droga w gore czy w dol
     
@@ -86,7 +89,7 @@ def vehicle_creator(road,freq,nr,reverse=False,only_entry=False):#chyba dziala X
         
         
     if(random.randint(0,99)<freq and road.lane[0].vehicle==0):
-        if(random.randint(0,1) or only_entry): #przejazd dolem
+        if((random.randint(0,1) or only_entry) and not only_entry_other_side): #przejazd dolem
             if(random.randint(0,1)):
                 destination = random.randint(0,len(bottom)-1)
                 if(bottom[destination]==nr):
@@ -113,14 +116,18 @@ def vehicle_creator(road,freq,nr,reverse=False,only_entry=False):#chyba dziala X
                 else:
                     vehicles.append(Vehicle(0,road,0,[4,bottom[destination],False,'L','L'])) # <- /
 
-bottom_destinations=[1,4]
-upper_destinations=[2,5]
+bottom_destinations=[1,4,6]
+upper_destinations=[2,5,8]
 
 
 def add_vehicle():
     vehicle_creator(r.r1,mazowiecka,1,True)
     vehicle_creator(r.r2,krowoderska,2)
     vehicle_creator(r.r3,zulawskiego,3,False,True)
-    vehicle_creator(r.r4,slaska,4,True) 
+    vehicle_creator(r.r4,slaska,4,True)
+    vehicle_creator(r.r6,pradnicka,6,True) 
+    vehicle_creator(r.r7,pradnicka_left,7,True,False,True) 
+    vehicle_creator(r.r8,pradnicka,8)
+    vehicle_creator(r.r9,pradnicka_left,9,False,True)
 
 vehicles=[] #list of vehicles that are on road
