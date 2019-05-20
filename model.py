@@ -14,7 +14,7 @@ def simulation():
     vehicles=veh.vehicles
     traffic_lights_timer=20
     main_roads=[r.main_road1,r.main_road2,r.main_road3,r.main_road4,r.main_road5,r.main_road6]
-    
+
     while(True): #mainloop
         vehicles_down=[]
         for i in range(len(vehicles)):
@@ -109,7 +109,7 @@ def simulation():
             ### out of road OR loop ###
             if( (vehicles[i].position+vehicles[i].velocity) >= len(vehicles[i].road.lane)):  #wyjechanie poza droge
                 if(vehicles[i].road in main_roads):
-                    vehicles[i].position=len(vehicles[i].road.lane) - (vehicles[i].position+vehicles[i].velocity)
+                    vehicles[i].position=(vehicles[i].position+vehicles[i].velocity) - len(vehicles[i].road.lane) 
                     if(vehicles[i].road.lane[vehicles[i].position].vehicle==0):
                         vehicles[i].update_cell(1)
                     continue

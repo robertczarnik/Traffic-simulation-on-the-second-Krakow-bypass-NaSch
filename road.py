@@ -9,7 +9,7 @@ class Road(object):
                
     def print_road(self,reverse=False):
         if(not reverse):
-            for i in range(len(self.lane)):
+            for i in range(70):
                 if(self.lane[i].crossing_id!=None):
                     print(max(self.lane[i].vehicle,self.other_roads[self.lane[i].crossing_id-1].lane[self.lane[i].index].vehicle),end=' ')                
                 else:
@@ -167,28 +167,28 @@ def road_creator(roads_list ,roads_param , crossing_list , template , space_betw
             roads_list[0].other_roads.append(road)
             
         if(roads_list[1]!=None):
-            (roads_list[1]).lane[roads_param[1]]=Cell(0,True,crossing_list[1],param[1])
-            road.lane[param[1]]=Cell(0,True,2,roads_param[1])
+            (roads_list[1]).lane[roads_param[0]]=Cell(0,True,crossing_list[0],param[1])
+            road.lane[param[1]]=Cell(0,True,2,roads_param[0])
             roads_list[1].other_roads.append(road)
             
         if(roads_list[2]!=None):
-            (roads_list[2]).lane[roads_param[2]]=Cell(0,True,crossing_list[2],param[2])
-            road.lane[param[2]]=Cell(0,True,3,roads_param[2])
+            (roads_list[2]).lane[roads_param[0]]=Cell(0,True,crossing_list[0],param[2])
+            road.lane[param[2]]=Cell(0,True,3,roads_param[0])
             roads_list[2].other_roads.append(road)
             
         if(roads_list[3]!=None):
-            (roads_list[3]).lane[roads_param[3]]=Cell(0,True,crossing_list[3],param[3])
-            road.lane[param[3]]=Cell(0,True,4,roads_param[3])
+            (roads_list[3]).lane[roads_param[1]]=Cell(0,True,crossing_list[1],param[3])
+            road.lane[param[3]]=Cell(0,True,4,roads_param[1])
             roads_list[3].other_roads.append(road)
             
         if(roads_list[4]!=None):
-            (roads_list[4]).lane[roads_param[4]]=Cell(0,True,crossing_list[4],param[4])
-            road.lane[param[4]]=Cell(0,True,5,roads_param[4])
+            (roads_list[4]).lane[roads_param[1]]=Cell(0,True,crossing_list[1],param[4])
+            road.lane[param[4]]=Cell(0,True,5,roads_param[1])
             roads_list[4].other_roads.append(road)
             
         if(roads_list[5]!=None):
-            (roads_list[5]).lane[roads_param[5]]=Cell(0,True,crossing_list[5],param[5])
-            road.lane[param[5]]=Cell(0,True,6,roads_param[5])
+            (roads_list[5]).lane[roads_param[1]]=Cell(0,True,crossing_list[1],param[5])
+            road.lane[param[5]]=Cell(0,True,6,roads_param[1])
             roads_list[5].other_roads.append(road)
         
         add_none_to_other_roads(roads_list)
@@ -205,18 +205,18 @@ def road_creator(roads_list ,roads_param , crossing_list , template , space_betw
             roads_list[0].other_roads.append(road)
             
         if(roads_list[1]!=None):
-            (roads_list[1]).lane[roads_param[1]]=Cell(0,True,crossing_list[1],param[1])
-            road.lane[param[1]]=Cell(0,True,2,roads_param[1])
+            (roads_list[1]).lane[roads_param[0]]=Cell(0,True,crossing_list[0],param[1])
+            road.lane[param[1]]=Cell(0,True,2,roads_param[0])
             roads_list[1].other_roads.append(road)
             
         if(roads_list[2]!=None):
-            (roads_list[2]).lane[roads_param[2]]=Cell(0,True,crossing_list[2],param[2])
-            road.lane[param[2]]=Cell(0,True,3,roads_param[2])
+            (roads_list[2]).lane[roads_param[0]]=Cell(0,True,crossing_list[0],param[2])
+            road.lane[param[2]]=Cell(0,True,3,roads_param[0])
             roads_list[2].other_roads.append(road)
             
         if(roads_list[3]!=None):
-            (roads_list[3]).lane[roads_param[3]]=Cell(0,True,crossing_list[3],param[3])
-            road.lane[param[3]]=Cell(0,True,4,roads_param[3])
+            (roads_list[3]).lane[roads_param[1]]=Cell(0,True,crossing_list[1],param[3])
+            road.lane[param[3]]=Cell(0,True,4,roads_param[1])
             roads_list[3].other_roads.append(road)
             
         add_none_to_other_roads(roads_list)
@@ -238,13 +238,13 @@ def road_creator(roads_list ,roads_param , crossing_list , template , space_betw
             roads_list[1].other_roads.append(road)
             
         if(roads_list[2]!=None):
-            (roads_list[2]).lane[roads_param[2]]=Cell(0,True,crossing_list[2],param[2])
-            road.lane[param[2]]=Cell(0,True,3,roads_param[2])
+            (roads_list[2]).lane[roads_param[1]]=Cell(0,True,crossing_list[1],param[2])
+            road.lane[param[2]]=Cell(0,True,3,roads_param[1])
             roads_list[2].other_roads.append(road)
             
         if(roads_list[3]!=None):
-            (roads_list[3]).lane[roads_param[3]]=Cell(0,True,crossing_list[3],param[3])
-            road.lane[param[3]]=Cell(0,True,4,roads_param[3])
+            (roads_list[3]).lane[roads_param[1]]=Cell(0,True,crossing_list[1],param[3])
+            road.lane[param[3]]=Cell(0,True,4,roads_param[1])
             roads_list[3].other_roads.append(road)
             
         add_none_to_other_roads(roads_list)
@@ -252,20 +252,17 @@ def road_creator(roads_list ,roads_param , crossing_list , template , space_betw
         
     return road #zwracam powstałą droge
     
-    
-###representing roads###
-########################## roads init with empty cells ################################       
 
 ###representing roads###
 #main roads
 main_road4 = [Cell(0) for i in range(55)]
 main_road5 = [Cell(0) for i in range(55)]
 main_road6 = [Cell(0) for i in range(55)]
-main_road1 = [Cell(0) for i in range(78)]
-main_road2 = [Cell(0) for i in range(78)]
-main_road3 = [Cell(0) for i in range(78)]
-#for i in range(55):
-#    main_road3.append(Cell(3))
+main_road1 = [Cell(0) for i in range(200)]
+main_road2 = [Cell(0) for i in range(200)]
+main_road3 = [Cell(0) for i in range(145)]
+for i in range(55):
+    main_road3.append(Cell(3))
 main_road1 = Road(main_road1)
 main_road2 = Road(main_road2)
 main_road3 = Road(main_road3)
@@ -281,23 +278,37 @@ main_road4.l_road=main_road5
 main_road5.r_road=main_road4
 main_road5.l_road=main_road6
 main_road6.r_road=main_road5  
+#--
+
+z_gory         = [None,None,None,main_road1,main_road2,main_road3]
+z_dolu         = [main_road3,main_road2,main_road1,None,None,None]
+wjazd_z_gory   = [None,None,None,main_road1]
+wjazd_z_dolu   = [main_road3,main_road2,main_road1,None]
+zjazd_do_gory  = [main_road1,None,None,None] 
+zjazd_do_dolu  = [None,main_road1,main_road2,main_road3]
 
 #other roads
-r1=road_creator([None,None,None,main_road1,main_road2,main_road3],[None,None,None,24,24,24],[None,None,None,1,1,1],3,4)
-r2=road_creator([main_road3,main_road2,main_road1,None,None,None],[25,25,25,None,None,None],[2,2,2,None,None,None],3,4)
+r1=road_creator(z_gory,[None,24],[None,1],3,4)
+r2=road_creator(z_dolu,[25,None],[2,None],3,4)
 r3=road_creator([main_road3],[42],[3],1)
-r4=road_creator([None,None,None,main_road1,main_road2,main_road3],[None,None,None,59,59,59],[None,None,None,4,4,4],3,4)
-r5=road_creator([main_road1,None,None,None],[60,None,None,None],[5,None,None,None],5,4)
-r6=road_creator([None,None,None,main_road1,main_road2,main_road3],[None,None,None,73,73,73],[None,None,None,6,6,6],3,4)
+r4=road_creator(z_gory,[None,59],[None,4],3,4)
+r5=road_creator(zjazd_do_gory,[60,None],[5,None],5,4)
+r6=road_creator(z_gory,[None,73],[None,6],3,4)
 
-
-#r1=road_creator([None,main_road1], [None,24] , [None,1] , 8 , 4 )
-#r2=road_creator([main_road1,None], [25,None] , [2,None] , 8 , 4 )
-#r3=road_creator([main_road3], [42] , [3] , 1)
-#r4=road_creator([None,main_road1], [None,59] , [None,4] , 8 , 4 )
-#r5=road_creator([main_road1,None], [60,None] , [5,None] , 9 , 4 )
-#r6=road_creator([main_road3], [63] , [6] , 2 )
-
+r7=road_creator(wjazd_z_gory,[None,74],[None,7],4,4)
+r8=road_creator(z_dolu,[75,None],[8,None],3,4)
+r9=road_creator([main_road3],[76],[9],1)
+r10=road_creator([None],[None],[10],2)
+r11=road_creator([None],[None],[11],2)
+r12=road_creator([None],[None],[12],1)
+r13=road_creator(wjazd_z_gory,[None,102],[None,13],4,1)
+r14=road_creator(zjazd_do_gory,[104,None],[14,None],5,1)
+r15=road_creator([None],[None],[15],2,1)
+r16=road_creator([None],[None],[16],1)
+r17=road_creator([None],[None],[17],1)
+r18=road_creator([main_road3],[142],[18],2)
+r19=road_creator([None],[None],[19],2)
+r20=road_creator([main_road2],[168],[20],1) # bo tutaj pas sie 1 skonczyl
 
 
    

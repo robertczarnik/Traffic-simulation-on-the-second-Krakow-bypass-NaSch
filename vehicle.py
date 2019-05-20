@@ -77,8 +77,17 @@ krowoderska=medium  #r2
 zulawskiego=low     #r3
 slaska=medium       #r4
 pradnicka1=medium   #r6
+pradnicka2=low      #r7
+dluga1=low          #r8
+dluga2=low          #r9
+kamienna1=low       #r12
+kamienna2=low       #r13
+aleja29listopada1=low #16
+aleja29listopada2=low #17
+aleja29listopada3=low #20
 
-def vehicle_creator(road,freq,nr,reverse=False,only_entry=False,only_entry_other_side=False,forward=False):#chyba dziala XD
+
+def vehicle_creator(road,freq,nr,reverse=False,only_entry=False,only_entry_other_side=False,forward=False,less=0):#chyba dziala XD
     #gdzie chce dojechac
     #i wtedy wybor czy przejechac na druga strone i czy to jest droga w gore czy w dol
     
@@ -106,30 +115,30 @@ def vehicle_creator(road,freq,nr,reverse=False,only_entry=False,only_entry_other
                     
                 else:
                     #print(bottom[destination])
-                    vehicles.append(Vehicle(0,road,0,[1,bottom[destination],False,'P','P'])) # -> /
+                    vehicles.append(Vehicle(0,road,0,[1+less,bottom[destination],False,'P','P'])) # -> /
             else:
                 destination = random.randint(0,len(upper)-1)
                 if(upper[destination]==nr):
                     vehicles.append(Vehicle(0,road,0,[False])) # ||
                 else:
                     #print(upper[destination])
-                    vehicles.append(Vehicle(0,road,0,[1,upper[destination],False,'L','P'])) # -> /
+                    vehicles.append(Vehicle(0,road,0,[1+less,upper[destination],False,'L','P'])) # -> /
         else: #przejazd gora
             if(random.randint(0,1)):
                 destination = random.randint(0,len(upper)-1)
                 if(upper[destination]==nr):
                     vehicles.append(Vehicle(0,road,0,[False])) # ||
                 else:
-                    vehicles.append(Vehicle(0,road,0,[4,upper[destination],False,'P','L'])) # <- /
+                    vehicles.append(Vehicle(0,road,0,[4+less,upper[destination],False,'P','L'])) # <- /
             else:
                 destination = random.randint(0,len(bottom)-1)
                 if(bottom[destination]==nr):
                     vehicles.append(Vehicle(0,road,0,[False])) # ||
                 else:
-                    vehicles.append(Vehicle(0,road,0,[4,bottom[destination],False,'L','L'])) # <- /
+                    vehicles.append(Vehicle(0,road,0,[4+less,bottom[destination],False,'L','L'])) # <- /
 
-bottom_destinations=[1,4,6]
-upper_destinations=[2,5]
+bottom_destinations=[1,4,6,18]
+upper_destinations=[2,5,8,10,11,14,15,19]
 
 
 def add_vehicle():
@@ -139,6 +148,13 @@ def add_vehicle():
     vehicle_creator(r.r3,zulawskiego,3,False,True)
     vehicle_creator(r.r4,slaska,4,True)
     vehicle_creator(r.r6,pradnicka1,6,True)
-
+    vehicle_creator(r.r7,pradnicka2,7,True,only_entry_other_side=True)
+    vehicle_creator(r.r8,dluga1,8,only_entry_other_side=True)
+    vehicle_creator(r.r9,dluga2,9,only_entry=True)
+    vehicle_creator(r.r12,kamienna1,12,True,only_entry=True)
+    vehicle_creator(r.r13,kamienna2,13,True,only_entry_other_side=True)
+    vehicle_creator(r.r16,aleja29listopada1,16,True,only_entry=True)
+    vehicle_creator(r.r17,aleja29listopada2,17,True,only_entry=True)
+    vehicle_creator(r.r20,aleja29listopada3,20,only_entry=True)
 
 vehicles=[] #list of vehicles that are on road
