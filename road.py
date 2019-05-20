@@ -9,7 +9,7 @@ class Road(object):
                
     def print_road(self,reverse=False):
         if(not reverse):
-            for i in range(len(self.lane)):
+            for i in range(len(self.lane)): #70 lub len(self.lane)
                 if(self.lane[i].crossing_id!=None):
                     print(max(self.lane[i].vehicle,self.other_roads[self.lane[i].crossing_id-1].lane[self.lane[i].index].vehicle),end=' ')                
                 else:
@@ -90,24 +90,32 @@ def traffic_ligths1(x): #sekwencja swiatel
 main_road4 = [Cell(0) for i in range(55)]
 main_road5 = [Cell(0) for i in range(55)]
 main_road6 = [Cell(0) for i in range(55)]
-main_road1 = [Cell(0) for i in range(115)]
-main_road2 = [Cell(0) for i in range(115)]
-main_road3 = [Cell(0) for i in range(115)]
+main_road1 = [Cell(0) for i in range(200)]
+main_road2 = [Cell(0) for i in range(200)]
+main_road3 = [Cell(0) for i in range(145)]
+for i in range(55):
+    main_road3.append(Cell(3))
+    
 r1 = [Cell(0) for i in range(34)]
 r2 = [Cell(0) for i in range(34)]
-r3 = [Cell(0) for i in range(14)]
+r3 = [Cell(0) for i in range(13)]
 r4 = [Cell(0) for i in range(34)]
 r5 = [Cell(0) for i in range(22)]
 r6 = [Cell(0) for i in range(34)]
-r7 = [Cell(0) for i in range(21)]
+r7 = [Cell(0) for i in range(20)]
 r8 = [Cell(0) for i in range(34)]
-r9 = [Cell(0) for i in range(14)]
+r9 = [Cell(0) for i in range(13)]
 r10 = []
 r11 = []
 r12 = []
-r13 = [Cell(0) for i in range(17)] 
+r13 = [Cell(0) for i in range(16)] 
 r14 = [Cell(0) for i in range(18)]    
 r15 = []
+r16 = []
+r17 = []
+r18 = [Cell(0) for i in range(13)]
+r19 = []
+r20 = [Cell(0) for i in range(13)]
 
 ########################## special cells and init roads obj ###########################
 #main_road1
@@ -130,7 +138,8 @@ main_road2[59]=Cell(0,True,4,20) #r4
 main_road2[60]=Cell(0,True,5,1)  #r5
 main_road2[73]=Cell(0,True,6,20) #r6
 main_road2[75]=Cell(0,True,8,13) #r8
-main_road2[104]=Cell(0,True,14,1) #r14 
+main_road2[104]=Cell(0,True,14,1) #r14
+main_road2[168]=Cell(0,True,20,12) #r20
 main_road2 = Road(main_road2)
 #---
 
@@ -143,7 +152,8 @@ main_road3[60]=Cell(0,True,5,0)  #r5
 main_road3[73]=Cell(0,True,6,21) #r6
 main_road3[75]=Cell(0,True,8,12) #r8
 main_road3[76]=Cell(0,True,9,12) #r9
-main_road3[104]=Cell(0,True,14,0) #r14 
+main_road3[104]=Cell(0,True,14,0) #r14
+main_road3[142]=Cell(0,True,18,0) #r18 
 main_road3 = Road(main_road3)
 #---
 
@@ -187,7 +197,6 @@ r2 = Road(r2)
 
 #r3 /\
 r3[12]=Cell(0,True,1,42)  #mr3
-r3[13]=Cell(3) #end of road
 r3 = Road(r3)
 #---
 
@@ -223,7 +232,6 @@ r6 = Road(r6)
 
 #r7 \/
 r7[19]=Cell(0,True,4,74)   #mr1
-r7[20]=Cell(3) #end of road
 r7 = Road(r7)
 #---
 
@@ -239,13 +247,11 @@ r8 = Road(r8)
 
 #r9 /\
 r9[12]=Cell(0,True,1,76)  #mr3
-r9[13]=Cell(3) #end of road
 r9 = Road(r9)
 #---
 
 #r13 \/
 r13[15]=Cell(0,True,4,102)  #mr1
-r13[16]=Cell(3) #end of road
 r13 = Road(r13)
 #---
 
@@ -259,22 +265,32 @@ r14[2]=Cell(0,True,3,104)  #mr1
 r14 = Road(r14)
 #---
 
+#r18 \/
+#r18[0]=Cell(0,True,1,142)  #mr3
+r18 = Road(r18)
+#---
+
+#r20 /\
+r20[12]=Cell(0,True,1,168)  #mr2
+r20 = Road(r20)
+#---
+
 
 ########################## setting neighbors and other roads ##########################
 #main_road1
 main_road1.r_road=main_road2
-main_road1.other_roads=[r1,r2,None,r4,r5,r6,r7,r8,None,None,None,None,r13,r14]
+main_road1.other_roads=[r1,r2,None,r4,r5,r6,r7,r8,None,None,None,None,r13,r14,None,None,None,r18,None,None]
 #---
 
 #main_road2
 main_road2.l_road=main_road1
 main_road2.r_road=main_road3
-main_road2.other_roads=[r1,r2,None,r4,r5,r6,None,r8,None,None,None,None,None,r14]
+main_road2.other_roads=[r1,r2,None,r4,r5,r6,None,r8,None,None,None,None,None,r14,None,None,None,r18,None,r20]
 #---
 
 #main_road3
 main_road3.l_road=main_road2
-main_road3.other_roads=[r1,r2,r3,r4,r5,r6,None,r8,r9,None,None,None,None,r14]
+main_road3.other_roads=[r1,r2,r3,r4,r5,r6,None,r8,r9,None,None,None,None,r14,None,None,None,r18,None,None]
 #---
 
 #main_road4
@@ -335,4 +351,12 @@ r13.other_roads=[None,None,None,main_road1]
 
 #r14
 r14.other_roads=[main_road3,main_road2,main_road1]
+#---
+
+#r18
+r18.other_roads=[] #main_road3 czy bez tego zadziala?
+#---
+
+#r20
+r20.other_roads=[main_road2]
 #---

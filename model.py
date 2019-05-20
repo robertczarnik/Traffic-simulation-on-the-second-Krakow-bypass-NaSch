@@ -49,7 +49,11 @@ def simulation():
                         
             if(not flag_action): 
                 for k in range(1,vehicles[i].velocity+1): #braking
-                    if(vehicles[i].check_collision(k)): #jest jakis pojazd przed nami, mozemy zwolnic lub probowac wyprzedzic go
+                    
+                    if(len(vehicles[i].road.lane)>(vehicles[i].position+k+1) and vehicles[i].road.lane[vehicles[i].position+k+1].vehicle==3): #mozna to lepiej zrobic, potrzebne do konczenia sie drogi i wstawionych tam trojek
+                        destination_close=False
+                    
+                    if(vehicles[i].check_collision(k) or (len(vehicles[i].road.lane)>(vehicles[i].position+k+1) and vehicles[i].road.lane[vehicles[i].position+k+1].vehicle==3)): #jest jakis pojazd przed nami, mozemy zwolnic lub probowac wyprzedzic go
                         if(destination_close==False and vehicles[i].road.l_road != None and veh.check_overtaking(vehicles[i],vehicles[i].road.l_road)): #jest lewy pas i odpowiednia luka na nim
                             vehicles[i].road=vehicles[i].road.l_road
                         elif(destination_close==False and vehicles[i].road.r_road != None and veh.check_overtaking(vehicles[i],vehicles[i].road.r_road)):#jest prawy pas i odpowiednia luka na nim
@@ -83,7 +87,7 @@ def simulation():
                             vehicles[i].destination.pop()
                             vehicles[i].destination[len(vehicles[i].destination)//2]=False
                             
-                            if(vehicles[i].destination[0]<=vehicles[i].road.lane[vehicles[i].position+k].crossing_id+4): #jest to do 4 skrzyzowac przed skrzyzowaniem celem
+                            if(vehicles[i].destination[0]<=vehicles[i].road.lane[vehicles[i].position+k].crossing_id+6): #jest to do 6 skrzyzowac przed skrzyzowaniem celem
                                 vehicles[i].destination[len(vehicles[i].destination)//2]=True
                             
                             vehicles[i].road=road_info[0]

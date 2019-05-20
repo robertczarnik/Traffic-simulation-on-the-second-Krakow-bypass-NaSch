@@ -74,6 +74,7 @@ pradnicka_left=medium       #r7
 dluga=medium               #r8
 dluga_right=medium         #r9
 kamienna=low            #r13
+aleja29listopada=medium #r20
 
 def vehicle_creator(road,freq,nr,reverse=False,only_entry=False,only_entry_other_side=False):#chyba dziala XD
     #gdzie chce dojechac
@@ -116,7 +117,7 @@ def vehicle_creator(road,freq,nr,reverse=False,only_entry=False,only_entry_other
                 else:
                     vehicles.append(Vehicle(0,road,0,[4,bottom[destination],False,'L','L'])) # <- /
 
-bottom_destinations=[1,4,6]
+bottom_destinations=[1,4,6,18]
 upper_destinations=[2,5,8,14]
 
 
@@ -130,5 +131,6 @@ def add_vehicle():
     vehicle_creator(r.r8,dluga,8)
     vehicle_creator(r.r9,dluga_right,9,False,True)
     vehicle_creator(r.r13,kamienna,13,True,False,True)
+    vehicle_creator(r.r20,aleja29listopada,20,False,True)
 
 vehicles=[] #list of vehicles that are on road
