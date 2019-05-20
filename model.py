@@ -10,8 +10,10 @@ def simulation():
     
     clear()
     vis.print_roads()
+    
     vehicles=veh.vehicles
-    traffic_lights_timer=0
+    traffic_lights_timer=20
+    main_roads=[r.main_road1,r.main_road2,r.main_road3,r.main_road4,r.main_road5,r.main_road6]
     
     while(True): #mainloop
         vehicles_down=[]
@@ -68,11 +70,6 @@ def simulation():
                 vehicles[i].velocity-=1
             #--------------------------   
                   
-            ### out of road ###
-            if( (vehicles[i].position+vehicles[i].velocity) >= len(vehicles[i].road.lane)):  #wyjechanie poza droge
-                vehicles_down.append(i) #indeksy pojazdow ktore trzeba usunac
-                continue
-            #--------------------------
                 
             ### crossings ###
             for k in range(1,vehicles[i].velocity+1): #sprawdzenie czy nie ma jakiegos skrzyzowania przed pojazdem
@@ -89,6 +86,7 @@ def simulation():
                             
                             if(vehicles[i].destination[0]<=vehicles[i].road.lane[vehicles[i].position+k].crossing_id+6): #jest to do 6 skrzyzowac przed skrzyzowaniem celem
                                 vehicles[i].destination[len(vehicles[i].destination)//2]=True
+                            
                             
                             vehicles[i].road=road_info[0]
                             vehicles[i].position=road_info[1]
@@ -108,6 +106,18 @@ def simulation():
             if(flag_update):
                 continue;
                 
+            ### out of road OR loop ###
+            if( (vehicles[i].position+vehicles[i].velocity) >= len(vehicles[i].road.lane)):  #wyjechanie poza droge
+                if(vehicles[i].road in main_roads):
+                    vehicles[i].position=len(vehicles[i].road.lane) - (vehicles[i].position+vehicles[i].velocity)
+                    if(vehicles[i].road.lane[vehicles[i].position].vehicle==0):
+                        vehicles[i].update_cell(1)
+                    continue
+                else:
+                    vehicles_down.append(i) #indeksy pojazdow ktore trzeba usunac
+                    continue
+            #--------------------------   
+            
             vehicles[i].position+=vehicles[i].velocity
             if(vehicles[i].road.lane[vehicles[i].position].vehicle==0):
                 vehicles[i].update_cell(1)
@@ -121,11 +131,14 @@ def simulation():
         #--------------------------
                 
         ### vehicles management ### 
-        for w in range(len(vehicles_down)-1,-1): #usuwanie pojazdow ktore wyjechaly poza droge (usuwanie od tylu zeby nie bylo bledow z odwolaniem do nieistniejacego pojazdu)
+        for w in range(len(vehicles_down)-1,-1,-1): #usuwanie pojazdow ktore wyjechaly poza droge (usuwanie od tylu zeby nie bylo bledow z odwolaniem do nieistniejacego pojazdu)
             vehicles.pop(vehicles_down[w])
-             
+                
+            
         veh.add_vehicle()
-        veh.add_vehicle() 
+        veh.add_vehicle()
+        
+        
         #--------------------------      
         
         ### simulation speed and visualisation ###    

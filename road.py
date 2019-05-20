@@ -1,15 +1,15 @@
 #0-wolna komorka 1-zajeta komorka 2-czerwone swiatlo 3-koniec drogi(koniecznosc zmiany pasa)
 
 class Road(object):
-    def __init__(self,lane,l_road=None,r_road=None,other_roads=None):
+    def __init__(self,lane,l_road=None,r_road=None):
         self.lane=lane
         self.l_road=l_road
         self.r_road=r_road
-        self.other_roads=other_roads #roads that cross this road
+        self.other_roads=[] #roads that cross this road
                
     def print_road(self,reverse=False):
         if(not reverse):
-            for i in range(len(self.lane)): #70 lub len(self.lane)
+            for i in range(len(self.lane)):
                 if(self.lane[i].crossing_id!=None):
                     print(max(self.lane[i].vehicle,self.other_roads[self.lane[i].crossing_id-1].lane[self.lane[i].index].vehicle),end=' ')                
                 else:
@@ -18,7 +18,7 @@ class Road(object):
         else: #droga z prawej do lewej
             for i in range(len(self.lane)-1,-1,-1):
                 if(self.lane[i].crossing_id!=None):
-                    print(max(self.lane[i].vehicle,self.other_roads[self.lane[i].crossing_id-1].lane[self.lane[i].index].vehicle),end=' ')                
+                    print(max(self.lane[i].vehicle , self.other_roads[self.lane[i].crossing_id-1].lane[self.lane[i].index].vehicle),end=' ')                
                 else:
                     print(self.lane[i].vehicle,end=' ')
             print('')
@@ -85,278 +85,219 @@ def traffic_ligths1(x): #sekwencja swiatel
         r2.lane[11].vehicle=2
         
     
+def add_none_to_other_roads(roads_list):
+    if(len(roads_list)==1): #1
+        if(roads_list[0]!=main_road1):
+            main_road1.other_roads.append(None)
+        if(roads_list[0]!=main_road2):
+            main_road2.other_roads.append(None)
+        if(roads_list[0]!=main_road3):
+            main_road3.other_roads.append(None)
+        if(roads_list[0]!=main_road4):
+            main_road4.other_roads.append(None) #dla 3-6 chyba nie append tylko wstawianie do poczatku jaki insert
+        if(roads_list[0]!=main_road5):
+            main_road5.other_roads.append(None)
+        if(roads_list[0]!=main_road6):
+            main_road6.other_roads.append(None)
+    elif(len(roads_list)==4): #4
+        if(roads_list[0]!=main_road1 and roads_list[1]!=main_road1 and roads_list[2]!=main_road1 and roads_list[3]!=main_road1):
+            main_road1.other_roads.append(None)
+        if(roads_list[0]!=main_road2 and roads_list[1]!=main_road2 and roads_list[2]!=main_road2 and roads_list[3]!=main_road2):
+            main_road2.other_roads.append(None)
+        if(roads_list[0]!=main_road3 and roads_list[1]!=main_road3 and roads_list[2]!=main_road3 and roads_list[3]!=main_road3):
+            main_road3.other_roads.append(None)
+        if(roads_list[0]!=main_road4 and roads_list[1]!=main_road4 and roads_list[2]!=main_road4 and roads_list[3]!=main_road4):
+            main_road4.other_roads.append(None)
+        if(roads_list[0]!=main_road5 and roads_list[1]!=main_road5 and roads_list[2]!=main_road5 and roads_list[3]!=main_road5):
+            main_road5.other_roads.append(None)
+        if(roads_list[0]!=main_road6 and roads_list[1]!=main_road6 and roads_list[2]!=main_road6 and roads_list[3]!=main_road6):
+            main_road6.other_roads.append(None)
+    elif(len(roads_list)==6): #6
+        if(roads_list[0]!=main_road1 and roads_list[1]!=main_road1 and roads_list[2]!=main_road1 and roads_list[3]!=main_road1 and roads_list[4]!=main_road1 and roads_list[5]!=main_road1):
+            main_road1.other_roads.append(None)
+        if(roads_list[0]!=main_road2 and roads_list[1]!=main_road2 and roads_list[2]!=main_road2 and roads_list[3]!=main_road2 and roads_list[4]!=main_road2 and roads_list[5]!=main_road2):
+            main_road2.other_roads.append(None)
+        if(roads_list[0]!=main_road3 and roads_list[1]!=main_road3 and roads_list[2]!=main_road3 and roads_list[3]!=main_road3 and roads_list[4]!=main_road3 and roads_list[5]!=main_road3):
+            main_road3.other_roads.append(None)
+        if(roads_list[0]!=main_road4 and roads_list[1]!=main_road4 and roads_list[2]!=main_road4 and roads_list[3]!=main_road4 and roads_list[4]!=main_road4 and roads_list[5]!=main_road4):
+            main_road4.other_roads.append(None)
+        if(roads_list[0]!=main_road5 and roads_list[1]!=main_road5 and roads_list[2]!=main_road5 and roads_list[3]!=main_road5 and roads_list[4]!=main_road5 and roads_list[5]!=main_road5):
+            main_road5.other_roads.append(None)
+        if(roads_list[0]!=main_road6 and roads_list[1]!=main_road6 and roads_list[2]!=main_road6 and roads_list[3]!=main_road6 and roads_list[4]!=main_road6 and roads_list[5]!=main_road6):
+            main_road6.other_roads.append(None)
+            
+def road_creator(roads_list ,roads_param , crossing_list , template , space_between_roads=0 , one_lane_closed=0):
+    road = []
+    len_roads=12
+    
+    if(template == 1): #wjazd
+        param = [len_roads + one_lane_closed]
+        road = [Cell(0) for i in range(len_roads+1+one_lane_closed)] #+1 bo wjazd
+        road=Road(road)
+        
+        if(roads_list[0]!=None):
+            (roads_list[0]).lane[roads_param[0]]=Cell(0,True,crossing_list[0],param[0])
+            road.lane[param[0]]=Cell(0,True,1,roads_param[0])
+            roads_list[0].other_roads.append(road)
+            
+        add_none_to_other_roads(roads_list)
+        road.other_roads=[roads_list[0]] 
+    
+    elif(template == 2): #wyjazd
+        param = [0]
+        road = [Cell(0) for i in range(len_roads+1)] #+1 bo wyjazd
+        road=Road(road)
+        
+        if(roads_list[0]!=None):
+            (roads_list[0]).lane[roads_param[0]]=Cell(0,True,crossing_list[0],param[0])
+            road.lane[param[0]]=Cell(0,True,1,roads_param[0])
+            roads_list[0].other_roads.append(road)
+            
+        add_none_to_other_roads(roads_list)
+        road.other_roads=[roads_list[0]] 
+        
+    elif(template == 3): #pelna droga
+        param = [len_roads,len_roads+1,len_roads+2,len_roads+2+space_between_roads+1,len_roads+2+space_between_roads+2,len_roads+2+space_between_roads+3]
+        road = [Cell(0) for i in range(len_roads*2+space_between_roads+6)] #pelna droga
+        road = Road(road)
+        
+        if(roads_list[0]!=None): 
+            (roads_list[0]).lane[roads_param[0]]=Cell(0,True,crossing_list[0],param[0])
+            road.lane[param[0]]=Cell(0,True,1,roads_param[0])
+            roads_list[0].other_roads.append(road)
+            
+        if(roads_list[1]!=None):
+            (roads_list[1]).lane[roads_param[1]]=Cell(0,True,crossing_list[1],param[1])
+            road.lane[param[1]]=Cell(0,True,2,roads_param[1])
+            roads_list[1].other_roads.append(road)
+            
+        if(roads_list[2]!=None):
+            (roads_list[2]).lane[roads_param[2]]=Cell(0,True,crossing_list[2],param[2])
+            road.lane[param[2]]=Cell(0,True,3,roads_param[2])
+            roads_list[2].other_roads.append(road)
+            
+        if(roads_list[3]!=None):
+            (roads_list[3]).lane[roads_param[3]]=Cell(0,True,crossing_list[3],param[3])
+            road.lane[param[3]]=Cell(0,True,4,roads_param[3])
+            roads_list[3].other_roads.append(road)
+            
+        if(roads_list[4]!=None):
+            (roads_list[4]).lane[roads_param[4]]=Cell(0,True,crossing_list[4],param[4])
+            road.lane[param[4]]=Cell(0,True,5,roads_param[4])
+            roads_list[4].other_roads.append(road)
+            
+        if(roads_list[5]!=None):
+            (roads_list[5]).lane[roads_param[5]]=Cell(0,True,crossing_list[5],param[5])
+            road.lane[param[5]]=Cell(0,True,6,roads_param[5])
+            roads_list[5].other_roads.append(road)
+        
+        add_none_to_other_roads(roads_list)
+        road.other_roads=[roads_list[0],roads_list[1],roads_list[2],roads_list[3],roads_list[4],roads_list[5]]
+    
+    elif(template == 4): #niepelna droga wjazdowa
+        param = [len_roads,len_roads+1,len_roads+2,len_roads+2+space_between_roads+1]
+        road = [Cell(0) for i in range(len_roads+space_between_roads+4)] #niepelna droga
+        road = Road(road)
+        
+        if(roads_list[0]!=None):
+            (roads_list[0]).lane[roads_param[0]]=Cell(0,True,crossing_list[0],param[0])
+            road.lane[param[0]]=Cell(0,True,1,roads_param[0])
+            roads_list[0].other_roads.append(road)
+            
+        if(roads_list[1]!=None):
+            (roads_list[1]).lane[roads_param[1]]=Cell(0,True,crossing_list[1],param[1])
+            road.lane[param[1]]=Cell(0,True,2,roads_param[1])
+            roads_list[1].other_roads.append(road)
+            
+        if(roads_list[2]!=None):
+            (roads_list[2]).lane[roads_param[2]]=Cell(0,True,crossing_list[2],param[2])
+            road.lane[param[2]]=Cell(0,True,3,roads_param[2])
+            roads_list[2].other_roads.append(road)
+            
+        if(roads_list[3]!=None):
+            (roads_list[3]).lane[roads_param[3]]=Cell(0,True,crossing_list[3],param[3])
+            road.lane[param[3]]=Cell(0,True,4,roads_param[3])
+            roads_list[3].other_roads.append(road)
+            
+        add_none_to_other_roads(roads_list)
+        road.other_roads=[roads_list[0],roads_list[1],roads_list[2],roads_list[3]]
+
+    elif(template == 5): #niepelna droga wyjazdowa
+        param = [0,1+space_between_roads,2+space_between_roads,3+space_between_roads]
+        road = [Cell(0) for i in range(len_roads+space_between_roads+4)] #niepelna droga
+        road = Road(road)
+        
+        if(roads_list[0]!=None):
+            (roads_list[0]).lane[roads_param[0]]=Cell(0,True,crossing_list[0],param[0])
+            road.lane[param[0]]=Cell(0,True,1,roads_param[0])
+            roads_list[0].other_roads.append(road)
+            
+        if(roads_list[1]!=None):
+            (roads_list[1]).lane[roads_param[1]]=Cell(0,True,crossing_list[1],param[1])
+            road.lane[param[1]]=Cell(0,True,2,roads_param[1])
+            roads_list[1].other_roads.append(road)
+            
+        if(roads_list[2]!=None):
+            (roads_list[2]).lane[roads_param[2]]=Cell(0,True,crossing_list[2],param[2])
+            road.lane[param[2]]=Cell(0,True,3,roads_param[2])
+            roads_list[2].other_roads.append(road)
+            
+        if(roads_list[3]!=None):
+            (roads_list[3]).lane[roads_param[3]]=Cell(0,True,crossing_list[3],param[3])
+            road.lane[param[3]]=Cell(0,True,4,roads_param[3])
+            roads_list[3].other_roads.append(road)
+            
+        add_none_to_other_roads(roads_list)
+        road.other_roads=[roads_list[0],roads_list[1],roads_list[2],roads_list[3]]
+        
+    return road #zwracam powstałą droge
+    
+    
 ###representing roads###
 ########################## roads init with empty cells ################################       
+
+###representing roads###
+#main roads
 main_road4 = [Cell(0) for i in range(55)]
 main_road5 = [Cell(0) for i in range(55)]
 main_road6 = [Cell(0) for i in range(55)]
-main_road1 = [Cell(0) for i in range(200)]
-main_road2 = [Cell(0) for i in range(200)]
-main_road3 = [Cell(0) for i in range(145)]
-for i in range(55):
-    main_road3.append(Cell(3))
-    
-r1 = [Cell(0) for i in range(34)]
-r2 = [Cell(0) for i in range(34)]
-r3 = [Cell(0) for i in range(13)]
-r4 = [Cell(0) for i in range(34)]
-r5 = [Cell(0) for i in range(22)]
-r6 = [Cell(0) for i in range(34)]
-r7 = [Cell(0) for i in range(20)]
-r8 = [Cell(0) for i in range(34)]
-r9 = [Cell(0) for i in range(13)]
-r10 = []
-r11 = []
-r12 = []
-r13 = [Cell(0) for i in range(16)] 
-r14 = [Cell(0) for i in range(18)]    
-r15 = []
-r16 = []
-r17 = []
-r18 = [Cell(0) for i in range(13)]
-r19 = []
-r20 = [Cell(0) for i in range(13)]
-
-########################## special cells and init roads obj ###########################
-#main_road1
-main_road1[24]=Cell(0,True,1,19) #r1
-main_road1[25]=Cell(0,True,2,14) #r2
-main_road1[59]=Cell(0,True,4,19) #r4
-main_road1[60]=Cell(0,True,5,2)  #r5
-main_road1[73]=Cell(0,True,6,19) #r6
-main_road1[74]=Cell(0,True,7,19) #r7
-main_road1[75]=Cell(0,True,8,14) #r8
-main_road1[102]=Cell(0,True,13,15)#r13 #nie ma pasa zieleni pomiedzy drogami
-main_road1[104]=Cell(0,True,14,2) #r14 
+main_road1 = [Cell(0) for i in range(78)]
+main_road2 = [Cell(0) for i in range(78)]
+main_road3 = [Cell(0) for i in range(78)]
+#for i in range(55):
+#    main_road3.append(Cell(3))
 main_road1 = Road(main_road1)
-#---
-
-#main_road2
-main_road2[24]=Cell(0,True,1,20) #r1
-main_road2[25]=Cell(0,True,2,13) #r2
-main_road2[59]=Cell(0,True,4,20) #r4
-main_road2[60]=Cell(0,True,5,1)  #r5
-main_road2[73]=Cell(0,True,6,20) #r6
-main_road2[75]=Cell(0,True,8,13) #r8
-main_road2[104]=Cell(0,True,14,1) #r14
-main_road2[168]=Cell(0,True,20,12) #r20
 main_road2 = Road(main_road2)
-#---
-
-#main_road3
-main_road3[24]=Cell(0,True,1,21) #r1
-main_road3[25]=Cell(0,True,2,12) #r2
-main_road3[42]=Cell(0,True,3,12) #r3
-main_road3[59]=Cell(0,True,4,21) #r4
-main_road3[60]=Cell(0,True,5,0)  #r5
-main_road3[73]=Cell(0,True,6,21) #r6
-main_road3[75]=Cell(0,True,8,12) #r8
-main_road3[76]=Cell(0,True,9,12) #r9
-main_road3[104]=Cell(0,True,14,0) #r14
-main_road3[142]=Cell(0,True,18,0) #r18 
 main_road3 = Road(main_road3)
-#---
-
-#main_road4
-main_road4[29]=Cell(0,True,1,12) #r2
-main_road4[30]=Cell(0,True,2,12) #r1
 main_road4 = Road(main_road4)
-#---
-
-#main_road5
-main_road5[29]=Cell(0,True,1,13) #r2
-main_road5[30]=Cell(0,True,2,13) #r1
 main_road5 = Road(main_road5)
-#---
-
-#main_road6
-main_road6[29]=Cell(0,True,1,14) #r2
-main_road6[30]=Cell(0,True,2,14) #r1
 main_road6 = Road(main_road6)
-#---
 
-#r1 \/
-r1[12]=Cell(0,True,1,30)  #mr4
-r1[13]=Cell(0,True,2,30)  #mr5
-r1[14]=Cell(0,True,3,30) #mr6
-r1[19]=Cell(0,True,4,24) #mr1
-r1[20]=Cell(0,True,5,24) #mr2
-r1[21]=Cell(0,True,6,24) #mr3
-r1 = Road(r1)
-#---
-
-#r2 /\
-r2[12]=Cell(0,True,1,25)  #mr3
-r2[13]=Cell(0,True,2,25)  #mr2
-r2[14]=Cell(0,True,3,25) #mr1
-r2[19]=Cell(0,True,4,29) #mr6
-r2[20]=Cell(0,True,5,29) #mr5
-r2[21]=Cell(0,True,6,29) #mr4
-r2 = Road(r2)
-#---
-
-#r3 /\
-r3[12]=Cell(0,True,1,42)  #mr3
-r3 = Road(r3)
-#---
-
-#r4 \/
-#r4[8]=Cell(0,True,1,30)  #mr4
-#r4[9]=Cell(0,True,2,30)  #mr5
-#r4[10]=Cell(0,True,3,30) #mr6
-r4[19]=Cell(0,True,4,59) #mr1
-r4[20]=Cell(0,True,5,59) #mr2
-r4[21]=Cell(0,True,6,59) #mr3
-r4 = Road(r4)
-#---
-
-#r5 /\
-r5[0]=Cell(0,True,1,60)  #mr3
-r5[1]=Cell(0,True,2,60)  #mr2
-r5[2]=Cell(0,True,3,60)  #mr1
-#r5[15]=Cell(0,True,4,29) #mr6
-#r5[16]=Cell(0,True,5,29) #mr5
-#r5[17]=Cell(0,True,6,29) #mr4
-r5 = Road(r5)
-#---
-
-#r6 \/
-#r6[12]=Cell(0,True,1,30)  #mr4
-#r6[13]=Cell(0,True,2,30)  #mr5
-#r6[14]=Cell(0,True,3,30) #mr6
-r6[19]=Cell(0,True,4,73) #mr1
-r6[20]=Cell(0,True,5,73) #mr2
-r6[21]=Cell(0,True,6,73) #mr3
-r6 = Road(r6)
-#---
-
-#r7 \/
-r7[19]=Cell(0,True,4,74)   #mr1
-r7 = Road(r7)
-#---
-
-#r8 /\
-r8[12]=Cell(0,True,1,75)  #mr3
-r8[13]=Cell(0,True,2,75)  #mr2
-r8[14]=Cell(0,True,3,75)  #mr1
-#r8[19]=Cell(0,True,4,29) #mr6
-#r8[20]=Cell(0,True,5,29) #mr5
-#r8[21]=Cell(0,True,6,29) #mr4
-r8 = Road(r8)
-#---
-
-#r9 /\
-r9[12]=Cell(0,True,1,76)  #mr3
-r9 = Road(r9)
-#---
-
-#r13 \/
-r13[15]=Cell(0,True,4,102)  #mr1
-r13 = Road(r13)
-#---
-
-#r14 /\
-r14[0]=Cell(0,True,1,104)  #mr3
-r14[1]=Cell(0,True,2,104)  #mr2
-r14[2]=Cell(0,True,3,104)  #mr1
-#r14[3]=Cell(0,True,4,75)  #mr6
-#r14[4]=Cell(0,True,5,75)  #mr5
-#r14[5]=Cell(0,True,6,75)  #mr4
-r14 = Road(r14)
-#---
-
-#r18 \/
-#r18[0]=Cell(0,True,1,142)  #mr3
-r18 = Road(r18)
-#---
-
-#r20 /\
-r20[12]=Cell(0,True,1,168)  #mr2
-r20 = Road(r20)
-#---
-
-
-########################## setting neighbors and other roads ##########################
-#main_road1
 main_road1.r_road=main_road2
-main_road1.other_roads=[r1,r2,None,r4,r5,r6,r7,r8,None,None,None,None,r13,r14,None,None,None,r18,None,None]
-#---
-
-#main_road2
 main_road2.l_road=main_road1
 main_road2.r_road=main_road3
-main_road2.other_roads=[r1,r2,None,r4,r5,r6,None,r8,None,None,None,None,None,r14,None,None,None,r18,None,r20]
-#---
-
-#main_road3
 main_road3.l_road=main_road2
-main_road3.other_roads=[r1,r2,r3,r4,r5,r6,None,r8,r9,None,None,None,None,r14,None,None,None,r18,None,None]
-#---
-
-#main_road4
 main_road4.l_road=main_road5
-main_road4.other_roads=[r2,r1]
-#---
-
-#main_road5
 main_road5.r_road=main_road4
 main_road5.l_road=main_road6
-main_road5.other_roads=[r2,r1]
-#---
+main_road6.r_road=main_road5  
 
-#main_road6
-main_road6.r_road=main_road5
-main_road6.other_roads=[r2,r1]
-#---
+#other roads
+r1=road_creator([None,None,None,main_road1,main_road2,main_road3],[None,None,None,24,24,24],[None,None,None,1,1,1],3,4)
+r2=road_creator([main_road3,main_road2,main_road1,None,None,None],[25,25,25,None,None,None],[2,2,2,None,None,None],3,4)
+r3=road_creator([main_road3],[42],[3],1)
+r4=road_creator([None,None,None,main_road1,main_road2,main_road3],[None,None,None,59,59,59],[None,None,None,4,4,4],3,4)
+r5=road_creator([main_road1,None,None,None],[60,None,None,None],[5,None,None,None],5,4)
+r6=road_creator([None,None,None,main_road1,main_road2,main_road3],[None,None,None,73,73,73],[None,None,None,6,6,6],3,4)
 
-#r1
-r1.other_roads=[main_road4,main_road5,main_road6,main_road1,main_road2,main_road3] 
-#---
 
-#r2
-r2.other_roads=[main_road3,main_road2,main_road1,main_road6,main_road5,main_road4]
-#---
+#r1=road_creator([None,main_road1], [None,24] , [None,1] , 8 , 4 )
+#r2=road_creator([main_road1,None], [25,None] , [2,None] , 8 , 4 )
+#r3=road_creator([main_road3], [42] , [3] , 1)
+#r4=road_creator([None,main_road1], [None,59] , [None,4] , 8 , 4 )
+#r5=road_creator([main_road1,None], [60,None] , [5,None] , 9 , 4 )
+#r6=road_creator([main_road3], [63] , [6] , 2 )
 
-#r3
-r3.other_roads=[main_road3]
-#---
 
-#r4
-r4.other_roads=[None,None,None,main_road1,main_road2,main_road3]
-#---
 
-#r5
-r5.other_roads=[main_road3,main_road2,main_road1,None,None,None]
-#---
-
-#r6
-r6.other_roads=[None,None,None,main_road1,main_road2,main_road3]
-#---
-
-#r7
-r7.other_roads=[None,None,None,main_road1]
-#---
-
-#r8
-r8.other_roads=[main_road3,main_road2,main_road1,None,None,None]
-#---
-
-#r9
-r9.other_roads=[main_road3]
-#---
-
-#r13
-r13.other_roads=[None,None,None,main_road1]
-#---
-
-#r14
-r14.other_roads=[main_road3,main_road2,main_road1]
-#---
-
-#r18
-r18.other_roads=[] #main_road3 czy bez tego zadziala?
-#---
-
-#r20
-r20.other_roads=[main_road2]
-#---
+   

@@ -15,18 +15,25 @@ class Vehicle(object):
     def get_speed_limit(self):
         return self.road.lane[self.position].speed_limit
     
-    def check_collision(self,distance):
-        if(self.position+distance >= len(self.road.lane)): #out of road
+    def check_collision(self,distance): #WYLOT
+        pos=self.position+distance
+        if(pos >= len(self.road.lane)): #zapetlnie drogi
             return False
         
-        return self.road.lane[self.position+distance].vehicle>0
+        return self.road.lane[pos].vehicle>0
     
-    def check_crossing(self,distance):
-        if(self.road.lane[self.position+distance].crossing_id!=None): #czyli jest jakies skrzyzowanie drog
-            return [self.road.other_roads[self.road.lane[self.position+distance].crossing_id-1],self.road.lane[self.position+distance].index] #zwracam droge ktora sie krzyzuje i pozycje w niej tego miejsca
+    def check_crossing(self,distance): #WYLOT
+        pos=self.position+distance
+        
+        if(pos >= len(self.road.lane)): #zapetlnie drogi
+            return None
+            
+        if(self.road.lane[pos].crossing_id!=None): #czyli jest jakies skrzyzowanie drog
+            return [self.road.other_roads[self.road.lane[pos].crossing_id-1],self.road.lane[pos].index] #zwracam droge ktora sie krzyzuje i pozycje w niej tego miejsca
+        
         return None
     
-def changing_road(vehicle,road):
+def changing_road(vehicle,road): #WYLOT nie takii koniecznyy
     pos=vehicle.position
     if(len(road.lane)<=pos+vehicle.road.lane[pos].speed_limit+1): #zeby nie wyleciec poza droge
         return False
@@ -41,7 +48,7 @@ def changing_road(vehicle,road):
     return vehicle.road.lane[pos].speed_limit
 
     
-def check_overtaking(vehicle,road):
+def check_overtaking(vehicle,road): #WYLOT
     pos=vehicle.position
     if(len(road.lane)<=pos+vehicle.velocity+1): #zeby nie wyleciec poza droge
         return False
@@ -69,14 +76,9 @@ mazowiecka=medium   #r1
 krowoderska=medium  #r2
 zulawskiego=low     #r3
 slaska=medium       #r4
-pradnicka=medium            #r6
-pradnicka_left=medium       #r7
-dluga=medium               #r8
-dluga_right=medium         #r9
-kamienna=low            #r13
-aleja29listopada=medium #r20
+pradnicka1=medium   #r6
 
-def vehicle_creator(road,freq,nr,reverse=False,only_entry=False,only_entry_other_side=False):#chyba dziala XD
+def vehicle_creator(road,freq,nr,reverse=False,only_entry=False,only_entry_other_side=False,forward=False):#chyba dziala XD
     #gdzie chce dojechac
     #i wtedy wybor czy przejechac na druga strone i czy to jest droga w gore czy w dol
     
@@ -90,18 +92,27 @@ def vehicle_creator(road,freq,nr,reverse=False,only_entry=False,only_entry_other
         
         
     if(random.randint(0,99)<freq and road.lane[0].vehicle==0):
+        
+        if(forward==True):
+            vehicles.append(Vehicle(0,road,0,[False]))
+            return
+        
         if((random.randint(0,1) or only_entry) and not only_entry_other_side): #przejazd dolem
             if(random.randint(0,1)):
                 destination = random.randint(0,len(bottom)-1)
+                
                 if(bottom[destination]==nr):
                     vehicles.append(Vehicle(0,road,0,[False])) # ||
+                    
                 else:
+                    #print(bottom[destination])
                     vehicles.append(Vehicle(0,road,0,[1,bottom[destination],False,'P','P'])) # -> /
             else:
                 destination = random.randint(0,len(upper)-1)
                 if(upper[destination]==nr):
                     vehicles.append(Vehicle(0,road,0,[False])) # ||
                 else:
+                    #print(upper[destination])
                     vehicles.append(Vehicle(0,road,0,[1,upper[destination],False,'L','P'])) # -> /
         else: #przejazd gora
             if(random.randint(0,1)):
@@ -117,20 +128,17 @@ def vehicle_creator(road,freq,nr,reverse=False,only_entry=False,only_entry_other
                 else:
                     vehicles.append(Vehicle(0,road,0,[4,bottom[destination],False,'L','L'])) # <- /
 
-bottom_destinations=[1,4,6,18]
-upper_destinations=[2,5,8,14]
+bottom_destinations=[1,4,6]
+upper_destinations=[2,5]
 
 
 def add_vehicle():
+    #(road , freq , nr , reverse , only_enter , only_entry_other_side , forward)
     vehicle_creator(r.r1,mazowiecka,1,True)
     vehicle_creator(r.r2,krowoderska,2)
     vehicle_creator(r.r3,zulawskiego,3,False,True)
     vehicle_creator(r.r4,slaska,4,True)
-    vehicle_creator(r.r6,pradnicka,6,True) 
-    vehicle_creator(r.r7,pradnicka_left,7,True,False,True) 
-    vehicle_creator(r.r8,dluga,8)
-    vehicle_creator(r.r9,dluga_right,9,False,True)
-    vehicle_creator(r.r13,kamienna,13,True,False,True)
-    vehicle_creator(r.r20,aleja29listopada,20,False,True)
+    vehicle_creator(r.r6,pradnicka1,6,True)
+
 
 vehicles=[] #list of vehicles that are on road
