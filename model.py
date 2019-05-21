@@ -133,12 +133,8 @@ def simulation():
         ### vehicles management ### 
         for w in range(len(vehicles_down)-1,-1,-1): #usuwanie pojazdow ktore wyjechaly poza droge (usuwanie od tylu zeby nie bylo bledow z odwolaniem do nieistniejacego pojazdu)
             vehicles.pop(vehicles_down[w])
-                
-            
+                            
         veh.add_vehicle()
-        veh.add_vehicle()
-        
-        
         #--------------------------      
         
         ### simulation speed and visualisation ###    

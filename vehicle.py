@@ -68,23 +68,7 @@ def check_overtaking(vehicle,road): #WYLOT
 
 #each road has its own propability to create a vehicle
 
-low=10
-medium=40
-high=80    
 
-mazowiecka=medium   #r1
-krowoderska=medium  #r2
-zulawskiego=low     #r3
-slaska=medium       #r4
-pradnicka1=medium   #r6
-pradnicka2=low      #r7
-dluga1=low          #r8
-dluga2=low          #r9
-kamienna1=low       #r12
-kamienna2=low       #r13
-aleja29listopada1=low #16
-aleja29listopada2=low #17
-aleja29listopada3=low #20
 
 
 def vehicle_creator(road,freq,nr,reverse=False,only_entry=False,only_entry_other_side=False,forward=False,less=0):#chyba dziala XD
@@ -137,12 +121,41 @@ def vehicle_creator(road,freq,nr,reverse=False,only_entry=False,only_entry_other
                 else:
                     vehicles.append(Vehicle(0,road,0,[4+less,bottom[destination],False,'L','L'])) # <- /
 
-bottom_destinations=[1,4,6,18]
-upper_destinations=[2,5,8,10,11,14,15,19]
+bottom_destinations=[1,4,6,18,23,24,31]
+upper_destinations=[2,5,8,10,11,14,15,19,22,29]
 
+
+low=10
+medium=40
+high=80    
+
+mazowiecka=medium   #r1
+krowoderska=medium  #r2
+zulawskiego=low     #r3
+slaska=medium       #r4
+pradnicka1=medium   #r6
+pradnicka2=low      #r7
+dluga1=low          #r8
+dluga2=low          #r9
+kamienna1=low       #r12
+kamienna2=low       #r13
+aleja29listopada1=low #16
+aleja29listopada2=low #17
+aleja29listopada3=low #20
+aleja29listopada4=low #21
+aleja29listopada5=low #25
+aleja29listopada6=low #26
+aleja29listopada7=low #27
+aleja29listopada8=low #28
+stwosza=low           #30
+stwosza2=low          #32
+rakowicka1=low        #35
+rakowicka2=low        #36
+lubomirskiego1=low    #39
+lubomirskiego2=low    #41
 
 def add_vehicle():
-    #(road , freq , nr , reverse , only_enter , only_entry_other_side , forward)
+#(road , freq , nr , reverse , only_enter , only_entry_other_side , forward , less)
     vehicle_creator(r.r1,mazowiecka,1,True)
     vehicle_creator(r.r2,krowoderska,2)
     vehicle_creator(r.r3,zulawskiego,3,False,True)
@@ -156,5 +169,18 @@ def add_vehicle():
     vehicle_creator(r.r16,aleja29listopada1,16,True,only_entry=True)
     vehicle_creator(r.r17,aleja29listopada2,17,True,only_entry=True)
     vehicle_creator(r.r20,aleja29listopada3,20,only_entry=True)
+    
+    vehicle_creator(r.r21,aleja29listopada4,21,True,only_entry=True)
+    vehicle_creator(r.r25,aleja29listopada5,25,True,only_entry=True)
+    vehicle_creator(r.r26,aleja29listopada6,26,True,only_entry=True)
+    vehicle_creator(r.r27,aleja29listopada7,27,only_entry=True)
+    vehicle_creator(r.r28,aleja29listopada8,28,only_entry=True)
+    vehicle_creator(r.r30,stwosza,30,True,only_entry=True)
+    
+    vehicle_creator(r.r32,stwosza2,32,only_entry=True)
+    vehicle_creator(r.r35,rakowicka1,35,True,less=1)
+    vehicle_creator(r.r36,rakowicka2,36,less=1)
+    vehicle_creator(r.r39,lubomirskiego1,39,True,only_entry=True)
+    vehicle_creator(r.r41,lubomirskiego2,41,only_entry=True)
 
 vehicles=[] #list of vehicles that are on road
