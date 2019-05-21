@@ -1,5 +1,6 @@
 import road as r
 import random
+from probability_of_entry import *
 
 class Vehicle(object):
     def __init__(self,velocity,road,position,destination):
@@ -123,36 +124,6 @@ def vehicle_creator(road,freq,nr,reverse=False,only_entry=False,only_entry_other
 
 bottom_destinations=[1,4,6,18,23,24,31]
 upper_destinations=[2,5,8,10,11,14,15,19,22,29]
-
-
-low=10
-medium=40
-high=80    
-
-mazowiecka=medium   #r1
-krowoderska=medium  #r2
-zulawskiego=low     #r3
-slaska=medium       #r4
-pradnicka1=medium   #r6
-pradnicka2=low      #r7
-dluga1=low          #r8
-dluga2=low          #r9
-kamienna1=low       #r12
-kamienna2=low       #r13
-aleja29listopada1=low #16
-aleja29listopada2=low #17
-aleja29listopada3=low #20
-aleja29listopada4=low #21
-aleja29listopada5=low #25
-aleja29listopada6=low #26
-aleja29listopada7=low #27
-aleja29listopada8=low #28
-stwosza=low           #30
-stwosza2=low          #32
-rakowicka1=low        #35
-rakowicka2=low        #36
-lubomirskiego1=low    #39
-lubomirskiego2=low    #41
 
 def add_vehicle():
 #(road , freq , nr , reverse , only_enter , only_entry_other_side , forward , less)
