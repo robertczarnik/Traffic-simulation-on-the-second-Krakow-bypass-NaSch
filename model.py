@@ -84,7 +84,8 @@ def simulation():
                             vehicles[i].destination.pop()
                             vehicles[i].destination[len(vehicles[i].destination)//2]=False
                             
-                            odl=vehicles[i].destination[0]-vehicles[i].road.lane[vehicles[i].position+k].crossing_id
+                            #TODO: usprawnic to
+                            odl=abs(vehicles[i].destination[0]-vehicles[i].road.lane[vehicles[i].position+k].crossing_id)
                             if(odl>=0 and odl < 7):
                             #if(vehicles[i].destination[0]<=vehicles[i].road.lane[vehicles[i].position+k].crossing_id+6): #jest to do 6 skrzyzowac przed skrzyzowaniem celem
                                 vehicles[i].destination[len(vehicles[i].destination)//2]=True

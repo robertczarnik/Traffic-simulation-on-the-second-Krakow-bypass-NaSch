@@ -15,14 +15,14 @@ class Vehicle(object):
     def get_speed_limit(self):
         return self.road.lane[self.position].speed_limit
     
-    def check_collision(self,distance): #WYLOT
+    def check_collision(self,distance):
         pos=self.position+distance
         if(pos >= len(self.road.lane)): #zapetlnie drogi
             return False
         
         return self.road.lane[pos].vehicle>0
     
-    def check_crossing(self,distance): #WYLOT
+    def check_crossing(self,distance):
         pos=self.position+distance
         
         if(pos >= len(self.road.lane)): #zapetlnie drogi
@@ -48,7 +48,7 @@ def changing_road(vehicle,road): #WYLOT nie takii koniecznyy
     return vehicle.road.lane[pos].speed_limit
 
     
-def check_overtaking(vehicle,road): #WYLOT
+def check_overtaking(vehicle,road):
     pos=vehicle.position
     if(len(road.lane)<=pos+vehicle.velocity+1): #zeby nie wyleciec poza droge
         return False
@@ -68,20 +68,14 @@ def check_overtaking(vehicle,road): #WYLOT
 
 #each road has its own propability to create a vehicle
 
-
-
-
 def vehicle_creator(road,freq,nr,reverse=False,only_entry=False,only_entry_other_side=False,forward=False,less=0):#chyba dziala XD
-    #gdzie chce dojechac
-    #i wtedy wybor czy przejechac na druga strone i czy to jest droga w gore czy w dol
-    
-
+ 
     if(reverse):
-        bottom=upper_destinations
-        upper=bottom_destinations
+        bottom = r.bottom_destinations_out
+        upper  = r.upper_destinations_out
     else:
-        bottom=bottom_destinations
-        upper=upper_destinations
+        bottom = r.bottom_destinations_ins
+        upper  = r.upper_destinations_ins
         
         
     if(random.randint(0,99)<freq and road.lane[0].vehicle==0):
@@ -90,7 +84,7 @@ def vehicle_creator(road,freq,nr,reverse=False,only_entry=False,only_entry_other
             vehicles.append(Vehicle(0,road,0,[False]))
             return
         
-        if((random.randint(0,1) or only_entry) and not only_entry_other_side): #przejazd dolem
+        if((random.randint(0,1) or only_entry) and not only_entry_other_side): #przejazd blizsza droga
             if(random.randint(0,1)):
                 destination = random.randint(0,len(bottom)-1)
                 
@@ -98,16 +92,14 @@ def vehicle_creator(road,freq,nr,reverse=False,only_entry=False,only_entry_other
                     vehicles.append(Vehicle(0,road,0,[False])) # ||
                     
                 else:
-                    #print(bottom[destination])
                     vehicles.append(Vehicle(0,road,0,[1+less,bottom[destination],False,'P','P'])) # -> /
             else:
                 destination = random.randint(0,len(upper)-1)
                 if(upper[destination]==nr):
                     vehicles.append(Vehicle(0,road,0,[False])) # ||
                 else:
-                    #print(upper[destination])
                     vehicles.append(Vehicle(0,road,0,[1+less,upper[destination],False,'L','P'])) # -> /
-        else: #przejazd gora
+        else: #przejazd dalsza droga
             if(random.randint(0,1)):
                 destination = random.randint(0,len(upper)-1)
                 if(upper[destination]==nr):
@@ -121,30 +113,21 @@ def vehicle_creator(road,freq,nr,reverse=False,only_entry=False,only_entry_other
                 else:
                     vehicles.append(Vehicle(0,road,0,[4+less,bottom[destination],False,'L','L'])) # <- /
 
-bottom_destinations=[1,4,6,18,23,24,31,34,35,38,50,57,64,65,
-                     69,79,83,84,86,92,96,98,105,108,109,
-                     113,114,116,118,122,123,130,134,141,
-                     150,156,158,163]
-upper_destinations=[2,5,8,10,11,14,15,
-                    19,22,29,36,37,40,44,45,48,49,
-                    54,61,62,68,72,73,74,81,91,93,94,95,110,
-                    111,135,147,151,152,157,161]
-
 
 low=10
 medium=40
 high=80    
 
-mazowiecka=medium   #r1
-krowoderska=medium  #r2
-zulawskiego=low     #r3
-slaska=medium       #r4
-pradnicka1=medium   #r6
-pradnicka2=low      #r7
-dluga1=low          #r8
-dluga2=low          #r9
-kamienna1=low       #r12
-kamienna2=low       #r13
+mazowiecka=medium     #r1
+krowoderska=medium    #r2
+zulawskiego=low       #r3
+slaska=medium         #r4
+pradnicka1=medium     #r6
+pradnicka2=low        #r7
+dluga1=low            #r8
+dluga2=low            #r9
+kamienna1=low         #r12
+kamienna2=low         #r13
 aleja29listopada1=low #16
 aleja29listopada2=low #17
 aleja29listopada3=low #20
@@ -176,51 +159,41 @@ r61=low               #61
 r63=low               #63
 r66=low               #66
 r67=low               #67
-
 r69=low               #69
 r70=low               #70
 r71=low               #71
 r72=low               #72
-
 r75=low               #75
 r76=low               #76
 r78=low               #78
-
 r80=low               #80
 r82=low               #82
 r85=low               #85
 r87=low               #87
-
 r88=low               #88
 r89=low               #89
 r92=low               #92
 r93=low               #93
 r97=low               #97
 r99=low               #99
-
 r101=low               #101
 r102=low               #102
 r106=low               #106
-
 r107=low               #107
 r108=low               #108
 r109=low               #109
 r110=low               #110
 r111=low               #111
 r112=low               #112
-
 r115=low               #115
 r117=low               #117
 r119=low               #119
 r120=low               #120
-
-
+r124=low               #124
+r125=low               #125
 r126=low               #126
 r127=low               #127
-r128=low               #128
-r129=low               #129
-r131=low               #131
-
+r130=low               #130
 r133=low               #133
 r134=low               #134
 r135=low               #135
@@ -230,22 +203,17 @@ r139=low               #139
 r140=low               #140
 r142=low               #142
 r143=low               #143
-
 r145=low               #145
 r146=low               #146
-
 r148=low               #148
 r149=low               #149
 r150=low               #150
 r151=low               #151
 r152=low               #152
-
 r154=low               #154
-
 r155=low               #155
 r156=low               #156
 r157=low               #157
-
 r159=low               #159
 r161=low               #161
 r162=low               #162
@@ -297,12 +265,12 @@ def add_vehicle():
     vehicle_creator(r.r63,r63,63,True,only_entry=True)
     vehicle_creator(r.r66,r66,66,only_entry=True)
     vehicle_creator(r.r67,r67,67,True,only_entry=True)
-    vehicle_creator(r.r69,r69,69,True)
-    vehicle_creator(r.r70,r70,70,True,only_entry_other_side=True)
-    vehicle_creator(r.r71,r71,71,only_entry_other_side=True)
-    vehicle_creator(r.r72,r72,72)
-    vehicle_creator(r.r75,r75,75,True)
-    vehicle_creator(r.r76,r76,76,True)
+    vehicle_creator(r.r69,r69,69,True,less=1)
+    vehicle_creator(r.r70,r70,70,True,only_entry_other_side=True,less=1)
+    vehicle_creator(r.r71,r71,71,only_entry_other_side=True,less=1)
+    vehicle_creator(r.r72,r72,72,less=1)
+    vehicle_creator(r.r75,r75,75,True,less=1)
+    vehicle_creator(r.r76,r76,76,True,less=1)
     vehicle_creator(r.r78,r78,78,True,only_entry=True)
     vehicle_creator(r.r80,r80,80,only_entry=True)
     vehicle_creator(r.r82,r82,82,True,only_entry=True)
@@ -318,68 +286,45 @@ def add_vehicle():
     vehicle_creator(r.r102,r102,102,True,only_entry=True)
     vehicle_creator(r.r106,r106,106,only_entry=True)
     vehicle_creator(r.r107,r107,107,True,only_entry=True)
-    vehicle_creator(r.r108,r108,108,True,only_entry_other_side=True)
-    vehicle_creator(r.r109,r109,109,True,forward=True)
-    vehicle_creator(r.r110,r110,110,only_entry_other_side=True)
-    vehicle_creator(r.r111,r111,111,forward=True)
+    vehicle_creator(r.r108,r108,108,True,only_entry_other_side=True,less=1)
+    vehicle_creator(r.r109,r109,109,True,forward=True,less=1)
+    vehicle_creator(r.r110,r110,110,only_entry_other_side=True,less=1)
+    vehicle_creator(r.r111,r111,111,forward=True,less=1)
     vehicle_creator(r.r112,r112,112,only_entry=True)
     vehicle_creator(r.r115,r115,115,only_entry=True)
     vehicle_creator(r.r117,r117,117,only_entry=True)
     vehicle_creator(r.r119,r119,119,only_entry=True)
     vehicle_creator(r.r120,r120,120,True,only_entry=True)
-    
+    vehicle_creator(r.r124,r124,124,True,only_entry=True)
+    vehicle_creator(r.r125,r125,125,True,only_entry=True)
     vehicle_creator(r.r126,r126,126,only_entry=True)
     vehicle_creator(r.r127,r127,127,only_entry=True)
-    vehicle_creator(r.r128,r128,128,True,only_entry=True)
-    vehicle_creator(r.r129,r129,129,True,only_entry=True)
-    vehicle_creator(r.r131,r131,131,only_entry=True)
-    
+    vehicle_creator(r.r130,r130,130,only_entry=True)
     vehicle_creator(r.r133,r133,133,True,only_entry=True)
     vehicle_creator(r.r134,r134,134,True,only_entry_other_side=True)
     vehicle_creator(r.r135,r135,135,only_entry_other_side=True)
     vehicle_creator(r.r136,r136,136,only_entry=True)
-
     vehicle_creator(r.r137,r137,137,True,only_entry=True)
-    vehicle_creator(r.r139,r139,139,True,only_entry=True)
-    vehicle_creator(r.r140,r140,140,only_entry=True)
-    
+    vehicle_creator(r.r139,r139,139,True)
+    vehicle_creator(r.r140,r140,140)
     vehicle_creator(r.r142,r142,142,only_entry=True)
     vehicle_creator(r.r143,r143,143,True,only_entry=True)
-
     vehicle_creator(r.r145,r145,145,True,only_entry=True)
     vehicle_creator(r.r146,r146,146,True,only_entry_other_side=True)
-    
-    
     vehicle_creator(r.r148,r148,148,True,only_entry=True)
     vehicle_creator(r.r149,r149,149,True,only_entry=True)
-    
     vehicle_creator(r.r150,r150,150,True,only_entry_other_side=True)
     vehicle_creator(r.r151,r151,151,only_entry_other_side=True)
     vehicle_creator(r.r152,r152,152,only_entry=True)
     vehicle_creator(r.r154,r154,154,only_entry=True)
-
     vehicle_creator(r.r155,r155,155,True,only_entry=True)
     vehicle_creator(r.r156,r156,156,True,only_entry_other_side=True)
     vehicle_creator(r.r157,r157,157)
-    
     vehicle_creator(r.r159,r159,159,True,only_entry=True)
     vehicle_creator(r.r161,r161,161,True)
     vehicle_creator(r.r162,r162,162,True,only_entry_other_side=True)
     vehicle_creator(r.r163,r163,163,only_entry_other_side=True)
     vehicle_creator(r.r164,r164,164,only_entry=True)
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 vehicles=[] #list of vehicles that are on road

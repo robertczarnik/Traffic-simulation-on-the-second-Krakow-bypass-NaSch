@@ -13,9 +13,9 @@ def print_roads():
 
         
         
-    r.main_road4.print_road(True)
-    r.main_road5.print_road(True)
-    r.main_road6.print_road(True)        
+    r.main_road4.print_road(1676,1748,True)
+    r.main_road5.print_road(1676,1748,True)
+    r.main_road6.print_road(1676,1748,True)        
         
     for i in range(15,19):
         print(' ' * 48,end='')
@@ -28,11 +28,11 @@ def print_roads():
         print(r.r6.lane[i].vehicle)
 
         
-    r.main_road1.print_road()
-    r.main_road2.print_road()
-    r.main_road3.print_road()
+    r.main_road1.print_road(0,70)
+    r.main_road2.print_road(0,70)
+    r.main_road3.print_road(0,70)
     
-    for i in range(22,30):
+    for i in range(22,34):
         print(' ' * 48,end='')
         print(r.r1.lane[i].vehicle,end=' ')
         print(r.r2.lane[len(r.r2.lane)-i-1].vehicle,end='')
