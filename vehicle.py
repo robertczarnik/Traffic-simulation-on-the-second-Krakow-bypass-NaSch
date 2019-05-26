@@ -1,5 +1,6 @@
 import road as r
 import random
+from probability_of_entry import *
 
 class Vehicle(object):
     def __init__(self,velocity,road,position,destination):
@@ -113,112 +114,6 @@ def vehicle_creator(road,freq,nr,reverse=False,only_entry=False,only_entry_other
                 else:
                     vehicles.append(Vehicle(0,road,0,[4+less,bottom[destination],False,'L','L'])) # <- /
 
-
-low=10
-medium=40
-high=80    
-
-mazowiecka=medium     #r1
-krowoderska=medium    #r2
-zulawskiego=low       #r3
-slaska=medium         #r4
-pradnicka1=medium     #r6
-pradnicka2=low        #r7
-dluga1=low            #r8
-dluga2=low            #r9
-kamienna1=low         #r12
-kamienna2=low         #r13
-aleja29listopada1=low #16
-aleja29listopada2=low #17
-aleja29listopada3=low #20
-aleja29listopada4=low #21
-aleja29listopada5=low #25
-aleja29listopada6=low #26
-aleja29listopada7=low #27
-aleja29listopada8=low #28
-stwosza=low           #30
-stwosza2=low          #32
-rakowicka1=low        #35
-rakowicka2=low        #36
-lubomirskiego1=low    #39
-lubomirskiego2=low    #41
-r42=low               #42
-r43=low               #43
-r46=low               #46
-r47=low               #47
-r51=low               #51
-r52=low               #52
-r53=low               #53
-r55=low               #55
-r56=low               #56
-r57=low               #57
-r58=low               #58
-r59=low               #59
-r60=low               #60
-r61=low               #61
-r63=low               #63
-r66=low               #66
-r67=low               #67
-r69=low               #69
-r70=low               #70
-r71=low               #71
-r72=low               #72
-r75=low               #75
-r76=low               #76
-r78=low               #78
-r80=low               #80
-r82=low               #82
-r85=low               #85
-r87=low               #87
-r88=low               #88
-r89=low               #89
-r92=low               #92
-r93=low               #93
-r97=low               #97
-r99=low               #99
-r101=low               #101
-r102=low               #102
-r106=low               #106
-r107=low               #107
-r108=low               #108
-r109=low               #109
-r110=low               #110
-r111=low               #111
-r112=low               #112
-r115=low               #115
-r117=low               #117
-r119=low               #119
-r120=low               #120
-r124=low               #124
-r125=low               #125
-r126=low               #126
-r127=low               #127
-r130=low               #130
-r133=low               #133
-r134=low               #134
-r135=low               #135
-r136=low               #136
-r137=low               #137
-r139=low               #139
-r140=low               #140
-r142=low               #142
-r143=low               #143
-r145=low               #145
-r146=low               #146
-r148=low               #148
-r149=low               #149
-r150=low               #150
-r151=low               #151
-r152=low               #152
-r154=low               #154
-r155=low               #155
-r156=low               #156
-r157=low               #157
-r159=low               #159
-r161=low               #161
-r162=low               #162
-r163=low               #163
-r164=low               #164
 
 
 
