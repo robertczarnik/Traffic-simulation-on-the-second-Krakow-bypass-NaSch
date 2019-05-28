@@ -505,6 +505,35 @@ def traffic_ligths15(x): #sekwencja swiatel
         r139.lane[11].vehicle=2
         r140.lane[11].vehicle=2
 
+def traffic_ligths16(x): #sekwencja swiatel
+    if(x==1):
+        main_road1.lane[1599].vehicle=0
+        main_road2.lane[1599].vehicle=0
+        main_road3.lane[1599].vehicle=0
+        main_road4.lane[119].vehicle=0
+        main_road5.lane[119].vehicle=0
+        main_road6.lane[119].vehicle=0
+        r145.lane[11].vehicle=2
+        r146.lane[11].vehicle=2
+    elif(x==3):
+        main_road1.lane[1599].vehicle=2
+        main_road2.lane[1599].vehicle=2
+        main_road3.lane[1599].vehicle=2
+        main_road4.lane[119].vehicle=2
+        main_road5.lane[119].vehicle=2
+        main_road6.lane[119].vehicle=2
+        r145.lane[11].vehicle=0
+        r146.lane[11].vehicle=0  
+    elif(x==5):
+        main_road1.lane[1599].vehicle=0
+        main_road2.lane[1599].vehicle=0
+        main_road3.lane[1599].vehicle=0
+        main_road4.lane[119].vehicle=0
+        main_road5.lane[119].vehicle=0
+        main_road6.lane[119].vehicle=0
+        r145.lane[11].vehicle=2
+        r146.lane[11].vehicle=2
+
 def add_none_to_other_roads(roads_list):
     if(main_road1 not in roads_list):
         main_road1.other_roads.append(None)
