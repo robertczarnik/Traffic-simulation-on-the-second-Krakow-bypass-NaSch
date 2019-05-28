@@ -1,3 +1,2 @@
-import model
-
-model.simulation() #start simulation
+import model, drawing
+drawing.drawing()
