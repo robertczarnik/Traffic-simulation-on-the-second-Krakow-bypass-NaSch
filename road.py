@@ -534,6 +534,79 @@ def traffic_ligths16(x): #sekwencja swiatel
         r145.lane[11].vehicle=2
         r146.lane[11].vehicle=2
 
+def traffic_ligths17(x): #sekwencja swiatel
+    if(x==1):
+        main_road1.lane[1635].vehicle=0
+        main_road2.lane[1635].vehicle=0
+        main_road3.lane[1635].vehicle=0
+        main_road4.lane[94].vehicle=0
+        main_road5.lane[94].vehicle=0
+        main_road6.lane[94].vehicle=0
+        r151.lane[11].vehicle=2
+        r152.lane[11].vehicle=2
+        r150.lane[11].vehicle=2
+        r148.lane[11].vehicle=2
+        r149.lane[11].vehicle=2
+    elif(x==3):
+        main_road1.lane[1635].vehicle=2
+        main_road2.lane[1635].vehicle=2
+        main_road3.lane[1635].vehicle=2
+        main_road4.lane[94].vehicle=2
+        main_road5.lane[94].vehicle=2
+        main_road6.lane[94].vehicle=2
+        r151.lane[11].vehicle=0
+        r152.lane[11].vehicle=0
+        r150.lane[11].vehicle=0
+        r148.lane[11].vehicle=0
+        r149.lane[11].vehicle=0  
+    elif(x==5):
+        main_road1.lane[1635].vehicle=0
+        main_road2.lane[1635].vehicle=0
+        main_road3.lane[1635].vehicle=0
+        main_road4.lane[94].vehicle=0
+        main_road5.lane[94].vehicle=0
+        main_road6.lane[94].vehicle=0
+        r151.lane[11].vehicle=2
+        r152.lane[11].vehicle=2
+        r150.lane[11].vehicle=2
+        r148.lane[11].vehicle=2
+        r149.lane[11].vehicle=2
+
+def traffic_ligths18(x): #sekwencja swiatel
+    if(x==1):
+        main_road1.lane[1716].vehicle=0
+        main_road2.lane[1716].vehicle=0
+        main_road3.lane[1716].vehicle=0
+        main_road4.lane[4].vehicle=0
+        main_road5.lane[4].vehicle=0
+        main_road6.lane[4].vehicle=0
+        r163.lane[11].vehicle=2
+        r164.lane[11].vehicle=2
+        r162.lane[11].vehicle=2
+        r161.lane[11].vehicle=2
+    elif(x==3):
+        main_road1.lane[1716].vehicle=2
+        main_road2.lane[1716].vehicle=2
+        main_road3.lane[1716].vehicle=2
+        main_road4.lane[4].vehicle=2
+        main_road5.lane[4].vehicle=2
+        main_road6.lane[4].vehicle=2
+        r163.lane[11].vehicle=0
+        r164.lane[11].vehicle=0
+        r162.lane[11].vehicle=0
+        r161.lane[11].vehicle=0  
+    elif(x==5):
+        main_road1.lane[1716].vehicle=0
+        main_road2.lane[1716].vehicle=0
+        main_road3.lane[1716].vehicle=0
+        main_road4.lane[4].vehicle=0
+        main_road5.lane[4].vehicle=0
+        main_road6.lane[4].vehicle=0
+        r163.lane[11].vehicle=2
+        r164.lane[11].vehicle=2
+        r162.lane[11].vehicle=2
+        r161.lane[11].vehicle=2
+
 def add_none_to_other_roads(roads_list):
     if(main_road1 not in roads_list):
         main_road1.other_roads.append(None)
