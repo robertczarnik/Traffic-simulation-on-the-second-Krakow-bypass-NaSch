@@ -83,7 +83,7 @@ def vehicle_creator(road, freq, nr, reverse=False, only_entry=False, only_entry_
         bottom = r.bottom_destinations_ins
         upper = r.upper_destinations_ins
 
-    if (random.randint(0, 99) < freq and road.lane[0].vehicle == 0):
+    if (random.randint(0, 999) < freq and road.lane[0].vehicle == 0):
 
         if (forward == True):
             vehicles.append(Vehicle(0, road, 0, [False]))

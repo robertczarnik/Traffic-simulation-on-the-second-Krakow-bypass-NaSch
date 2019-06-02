@@ -1,2 +1,2 @@
-import model, drawing
+import drawing
 drawing.drawing()

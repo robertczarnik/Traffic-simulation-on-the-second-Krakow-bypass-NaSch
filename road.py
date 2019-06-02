@@ -36,32 +36,41 @@ class Cell(object):
 def traffic_lights_management(traffic_lights_timer):
     traffic_ligths1(69)
     traffic_ligths2(69)
-    traffic_ligths3(69)
     traffic_ligths4(69)
-    '''if(traffic_lights_timer==60):
+    if(traffic_lights_timer==120):
         traffic_lights_timer=0
     
     if(traffic_lights_timer==0):
         traffic_ligths1(1)
         traffic_ligths2(1)
+        traffic_ligths3(1)
+        traffic_ligths4(1)
      
-    if(traffic_lights_timer==17):
+    if(traffic_lights_timer==57):
         traffic_ligths1(2)
         traffic_ligths2(2)
+        traffic_ligths3(2)
+        traffic_ligths4(2)
         
-    elif(traffic_lights_timer==20):
+    elif(traffic_lights_timer==75):
         traffic_ligths1(3)
         traffic_ligths2(3)
+        traffic_ligths3(3)
+        traffic_ligths4(3)
         
-    elif(traffic_lights_timer==35):
+    elif(traffic_lights_timer==95):
         traffic_ligths1(4)
         traffic_ligths2(4)
+        traffic_ligths3(4)
+        traffic_ligths4(4)
         
-    elif(traffic_lights_timer==45):
+    elif(traffic_lights_timer==108):
         traffic_ligths1(5)
         traffic_ligths2(5)
+        traffic_ligths3(5)
+        traffic_ligths4(5)
         
-    traffic_lights_timer+=1'''
+    traffic_lights_timer+=1
         
         
 def traffic_ligths1(x): #sekwencja swiatel
@@ -74,7 +83,7 @@ def traffic_ligths1(x): #sekwencja swiatel
         main_road6.lane[1721].vehicle=0
         r1.lane[18].vehicle=2
         r2.lane[18].vehicle=2
-        #r1.lane[11].vehicle=2
+        r1.lane[11].vehicle=2
         r2.lane[11].vehicle=2
     elif(x==2):
         main_road1.lane[23].vehicle=2
@@ -90,19 +99,8 @@ def traffic_ligths1(x): #sekwencja swiatel
         r1.lane[11].vehicle=0
         r2.lane[11].vehicle=0
     elif(x==5):
-        #r1.lane[11].vehicle=2
-        r2.lane[11].vehicle=2
-    elif(x==69):
-        main_road1.lane[23].vehicle=2
-        main_road2.lane[23].vehicle=2
-        main_road3.lane[23].vehicle=2
-        main_road4.lane[1721].vehicle=2
-        main_road5.lane[1721].vehicle=2
-        main_road6.lane[1721].vehicle=2
         r1.lane[11].vehicle=2
         r2.lane[11].vehicle=2
-        r1.lane[18].vehicle=2
-        r2.lane[18].vehicle=2
         
 def traffic_ligths2(x): #sekwencja swiatel
     if(x==1):
@@ -113,9 +111,8 @@ def traffic_ligths2(x): #sekwencja swiatel
         main_road5.lane[1686].vehicle=0
         main_road6.lane[1686].vehicle=0
         r4.lane[18].vehicle=2
-        r5.lane[18].vehicle=2
+        r5.lane[4].vehicle=2
         r4.lane[11].vehicle=2
-        r5.lane[11].vehicle=2
     elif(x==2):
         main_road1.lane[58].vehicle=2
         main_road2.lane[58].vehicle=2
@@ -124,25 +121,14 @@ def traffic_ligths2(x): #sekwencja swiatel
         main_road5.lane[1686].vehicle=2
         main_road6.lane[1686].vehicle=2
     elif(x==3):
-        r4.lane[18].vehicle=0
-        r5.lane[18].vehicle=0
+        r5.lane[4].vehicle=0
     elif(x==4):
         r4.lane[11].vehicle=0
-        r5.lane[11].vehicle=0
+        r4.lane[18].vehicle=0
+        r5.lane[4].vehicle=2
     elif(x==5):
         r4.lane[11].vehicle=2
-        r5.lane[11].vehicle=2
-    elif(x==69):
-        main_road1.lane[58].vehicle=2
-        main_road2.lane[58].vehicle=2
-        main_road3.lane[58].vehicle=2
-        main_road4.lane[1686].vehicle=2
-        main_road5.lane[1686].vehicle=2
-        main_road6.lane[1686].vehicle=2
-        r4.lane[11].vehicle=2
-        r5.lane[11].vehicle=2
-        r4.lane[18].vehicle=2
-        r5.lane[18].vehicle=2
+
         
 def traffic_ligths3(x): #sekwencja swiatel
     if(x==1):
@@ -154,8 +140,11 @@ def traffic_ligths3(x): #sekwencja swiatel
         main_road6.lane[1671].vehicle=0
         r6.lane[18].vehicle=2
         r7.lane[18].vehicle=2
+        r6.lane[11].vehicle=2
+        r7.lane[11].vehicle=2
         r8.lane[11].vehicle=2
         r9.lane[11].vehicle=2
+        r8.lane[18].vehicle=2
     elif(x==2):
         main_road1.lane[72].vehicle=2
         main_road2.lane[72].vehicle=2
@@ -166,27 +155,23 @@ def traffic_ligths3(x): #sekwencja swiatel
     elif(x==3):
         r6.lane[18].vehicle=0
         r7.lane[18].vehicle=0
-    elif(x==4):
-        r8.lane[11].vehicle=0
+        r6.lane[11].vehicle=0
+        r7.lane[11].vehicle=0
         r9.lane[11].vehicle=0
-    elif(x==5):
-        r6.lane[11].vehicle=2
-        r7.lane[11].vehicle=2
-    elif(x==69):
-        main_road1.lane[72].vehicle=2
-        main_road2.lane[72].vehicle=2
-        main_road3.lane[72].vehicle=2
-        main_road4.lane[1671].vehicle=2
-        main_road5.lane[1671].vehicle=2
-        main_road6.lane[1671].vehicle=2
-        r6.lane[11].vehicle=2
-        r7.lane[11].vehicle=2
+    elif(x==4):
         r6.lane[18].vehicle=2
         r7.lane[18].vehicle=2
+        r6.lane[11].vehicle=2
+        r7.lane[11].vehicle=2
+        r9.lane[11].vehicle=2
+    elif(x==5):
+        r8.lane[11].vehicle=0
+        r8.lane[18].vehicle=0
+
         
 def traffic_ligths4(x): #sekwencja swiatel
     if(x==1):
-        main_road1.lane[100].vehicle=0
+        main_road1.lane[100].vehicle=2
         main_road2.lane[100].vehicle=0
         main_road3.lane[100].vehicle=0
         main_road4.lane[1652].vehicle=0
@@ -202,23 +187,13 @@ def traffic_ligths4(x): #sekwencja swiatel
         main_road5.lane[1652].vehicle=2
         main_road6.lane[1652].vehicle=2
     elif(x==3):
-        r12.lane[11].vehicle=0
-        r13.lane[11].vehicle=0
+        main_road1.lane[100].vehicle=0
     elif(x==4):
         r12.lane[11].vehicle=0
-        r13.lane[11].vehicle=0
     elif(x==5):
         r12.lane[11].vehicle=2
-        r13.lane[11].vehicle=2
-    elif(x==69):
         main_road1.lane[100].vehicle=2
-        main_road2.lane[100].vehicle=2
-        main_road3.lane[100].vehicle=2
-        main_road4.lane[1652].vehicle=2
-        main_road5.lane[1652].vehicle=2
-        main_road6.lane[1652].vehicle=2
-        r12.lane[11].vehicle=2
-        r13.lane[11].vehicle=2
+        r13.lane[11].vehicle=0
 
         
 def traffic_ligths5(x): #sekwencja swiatel
@@ -910,7 +885,7 @@ r11  = road_creator([main_road4] ,[1660]     ,[11],2)
 r12  = road_creator([main_road4] ,[1656]     ,[12],1)
 r13  = road_creator(wjazd_z_gory ,[1655,102] ,[13],4)
 r14  = road_creator(zjazd_do_gory,[104,1654] ,[14],5)
-r15  = road_creator([main_road4] ,[1653]     ,[15],2,1)
+r15  = road_creator([main_road4] ,[1653]     ,[15],2)
 r16  = road_creator([main_road4] ,[1616]     ,[16],1)
 r17  = road_creator([main_road4] ,[1615]     ,[17],1)
 r18  = road_creator([main_road3] ,[142]      ,[18],2)

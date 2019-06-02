@@ -1,8 +1,8 @@
-very_low = 5
-low=30
-medium=55
-high=80
-very_high = 90
+very_low = 10
+low=20
+medium=30
+high=50
+very_high = 55
 
 mazowiecka=very_high        #r1
 krowoderska=low             #r2
