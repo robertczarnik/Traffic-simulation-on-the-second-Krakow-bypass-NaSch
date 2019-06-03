@@ -74,7 +74,7 @@ def check_overtaking(vehicle, road):
 # each road has its own propability to create a vehicle
 
 def vehicle_creator(road, freq, nr, reverse=False, only_entry=False, only_entry_other_side=False, forward=False,
-                    less=0):  # chyba dziala XD
+                    less=0):
 
     if (reverse):
         bottom = r.bottom_destinations_out
