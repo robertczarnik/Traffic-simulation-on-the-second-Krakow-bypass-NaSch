@@ -542,10 +542,10 @@ def traffic_ligths12(x): #sekwencja swiatel
 
 def traffic_ligths13(x): #sekwencja swiatel
     if(x==1):
-        main_road1.lane[1143].vehicle=0
-        main_road2.lane[1143].vehicle=0
-        main_road5.lane[549].vehicle=0
-        main_road6.lane[549].vehicle=0
+        main_road1.lane[1163].vehicle=0
+        main_road2.lane[1163].vehicle=0
+        main_road5.lane[547].vehicle=0
+        main_road6.lane[547].vehicle=0
         r107.lane[11].vehicle=2
         r108.lane[11].vehicle=2
         r109.lane[11].vehicle=2
@@ -553,10 +553,10 @@ def traffic_ligths13(x): #sekwencja swiatel
         r111.lane[11].vehicle=2
         r112.lane[11].vehicle=2    
     elif(x==2):
-        main_road1.lane[1143].vehicle=2
-        main_road2.lane[1143].vehicle=2
-        main_road5.lane[549].vehicle=2
-        main_road6.lane[549].vehicle=2
+        main_road1.lane[1163].vehicle=2
+        main_road2.lane[1163].vehicle=2
+        main_road5.lane[547].vehicle=2
+        main_road6.lane[547].vehicle=2
  
     elif(x==2):
         r107.lane[11].vehicle=0
