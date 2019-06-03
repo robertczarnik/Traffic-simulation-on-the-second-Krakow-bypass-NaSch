@@ -11,7 +11,7 @@ def simulation():
     vehicles_down=[]
     for i in range(len(vehicles)):
         ### initial settings ###
-        flag_update=False #flaga do przeskoczenia do koeljengo obiegu petli w przypadku juz zaktualizowanego miejsca pojazdu
+        flag_update=False #flaga do przeskoczenia do kolejengo obiegu petli w przypadku juz zaktualizowanego miejsca pojazdu
         flag_action=False #one action for one vehicle
         
         if(vehicles[i].road.lane[vehicles[i].position].vehicle==1): #jesli sa swiatla wlaczone tam to nie usuwaj
@@ -76,10 +76,8 @@ def simulation():
                         vehicles[i].destination.pop()
                         vehicles[i].destination[len(vehicles[i].destination)//2]=False
                         
-                        #TODO: usprawnic to
                         odl=abs(vehicles[i].destination[0]-vehicles[i].road.lane[vehicles[i].position+k].crossing_id)
                         if(odl>=0 and odl < 7):
-                        #if(vehicles[i].destination[0]<=vehicles[i].road.lane[vehicles[i].position+k].crossing_id+6): #jest to do 6 skrzyzowac przed skrzyzowaniem celem
                             vehicles[i].destination[len(vehicles[i].destination)//2]=True
                         
                         
@@ -91,11 +89,9 @@ def simulation():
                         flag_update=True
                         
                         
-                        
                         break #potrzebne to break zeby nastapila tylko jedna aktualizacja
                     odl=vehicles[i].destination[0]-vehicles[i].road.lane[vehicles[i].position+k].crossing_id
                     if(odl>=0 and odl < 7):
-                    #if(vehicles[i].destination[0]<=vehicles[i].road.lane[vehicles[i].position+k].crossing_id+4): #jest to do 4 skrzyzowac przed skrzyzowaniem celem
                         vehicles[i].destination[len(vehicles[i].destination)//2]=True
         #--------------------------
                      

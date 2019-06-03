@@ -37,7 +37,7 @@ class Vehicle(object):
         return None
 
 
-def changing_road(vehicle, road):  # WYLOT nie takii koniecznyy
+def changing_road(vehicle, road):
     pos = vehicle.position
     if (len(road.lane) <= pos + vehicle.road.lane[pos].speed_limit + 1):  # zeby nie wyleciec poza droge
         return False
@@ -45,7 +45,7 @@ def changing_road(vehicle, road):  # WYLOT nie takii koniecznyy
     if (road.lane[pos].vehicle > 0):  # jest samochod na sasiednim pasie - nie da sie zmienic pasa
         return False
 
-    for i in range(pos + 1, pos + vehicle.road.lane[pos].speed_limit + 1):  # (gap_lookback,gap_ahead)
+    for i in range(pos + 1, pos + vehicle.road.lane[pos].speed_limit + 1):
         if (road.lane[i].vehicle > 0):
             return i - 1  # predkosc z jaka moze zmienic pas
 
