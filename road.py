@@ -298,8 +298,6 @@ def traffic_ligths6(x): #sekwencja swiatel
     if(x==1):
         main_road1.lane[373].vehicle=0
         main_road2.lane[373].vehicle=0
-        main_road3.lane[373].vehicle=0
-        main_road4.lane[1397].vehicle=0
         main_road5.lane[1397].vehicle=0
         main_road6.lane[1397].vehicle=0
         r35.lane[11].vehicle=2
@@ -307,8 +305,6 @@ def traffic_ligths6(x): #sekwencja swiatel
     elif(x==2):
         main_road1.lane[373].vehicle=2
         main_road2.lane[373].vehicle=2
-        main_road3.lane[373].vehicle=2
-        main_road4.lane[1397].vehicle=2
         main_road5.lane[1397].vehicle=2
         main_road6.lane[1397].vehicle=2
     elif(x==3):
@@ -353,9 +349,9 @@ def traffic_ligths7(x): #sekwencja swiatel
         main_road1.lane[454].vehicle=2
         main_road2.lane[454].vehicle=2
         main_road3.lane[454].vehicle=2
-        main_road4.lane[1329].vehicle=2
-        main_road5.lane[1329].vehicle=2
-        main_road6.lane[1329].vehicle=2
+        main_road4.lane[1310].vehicle=2
+        main_road5.lane[1310].vehicle=2
+        main_road6.lane[1310].vehicle=2
         main_road4.lane[1329].vehicle=2
         main_road5.lane[1329].vehicle=2
         main_road6.lane[1329].vehicle=2

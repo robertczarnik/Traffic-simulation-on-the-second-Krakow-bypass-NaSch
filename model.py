@@ -117,7 +117,7 @@ def simulation():
         #--------------------------
         
     ### traffic lights ###
-    if(drawing.traffic_lights_timer==60):
+    if(drawing.traffic_lights_timer==120):
         drawing.traffic_lights_timer=0
     r.traffic_lights_management(drawing.traffic_lights_timer)
     drawing.traffic_lights_timer+=1
